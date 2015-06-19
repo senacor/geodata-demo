@@ -39,7 +39,7 @@ public class LoginView extends VerticalLayout implements View {
 
     private Component buildLoginButton() {
         Button login = new Button("Log into GeoData", (event) -> {
-            UI.getCurrent().getNavigator().navigateTo(GeoDataPortalView.GEO_DATA_PORTAL_VIEW);
+            UI.getCurrent().getNavigator().navigateTo(GeoDataPortalView.VIEW_NAME);
         });
 //        login.setDescription("Click on this button to login");
         login.addStyleName(ValoTheme.BUTTON_PRIMARY);
