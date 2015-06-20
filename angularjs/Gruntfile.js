@@ -203,6 +203,18 @@ module.exports = function (grunt) {
       }
     },
 
+
+    coffee: {
+      glob_to_multiple: {
+        expand: true,
+        flatten: true,
+        cwd: 'app/coffee/',
+        src: ['*.coffee'],
+        dest: 'app/generated/',
+        ext: '.js'
+      }
+    },
+
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
@@ -474,4 +486,6 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+
+  grunt.loadNpmTasks('grunt-contrib-coffee');
 };
