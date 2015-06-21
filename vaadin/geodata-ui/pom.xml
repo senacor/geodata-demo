@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-   <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-   <groupId>com.senacor</groupId>
-   <artifactId>geodata-ui</artifactId>
-   <version>0.0.1-SNAPSHOT</version>
-   <packaging>jar</packaging>
+  <groupId>com.senacor</groupId>
+  <artifactId>geodata-ui</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
-   <name>Demo UI based on Vaading</name>
-   <description>Demo project for Spring Boot/Vaadin</description>
+  <name>Demo UI based on Vaading</name>
+  <description>Demo project for Spring Boot/Vaadin</description>
 
-   <parent>
+  <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>1.2.4.RELEASE</version>
     <relativePath/>
     <!-- lookup parent from repository -->
-</parent>
+  </parent>
 
-<properties>
+  <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
-</properties>
+  </properties>
 
-<dependencies>
+  <dependencies>
     <!--<dependency>-->
     <!--<groupId>org.springframework.boot</groupId>-->
     <!--<artifactId>spring-boot-starter-actuator</artifactId>-->
@@ -46,23 +46,23 @@
     <!--<artifactId>spring-boot-starter-security</artifactId>-->
     <!--</dependency>-->
     <dependency>
-        <groupId>com.vaadin</groupId>
-        <artifactId>vaadin-spring-boot-starter</artifactId>
-        <version>1.0.0.beta3</version>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-spring-boot-starter</artifactId>
+      <version>1.0.0.beta3</version>
     </dependency>
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-        <exclusions>
-            <exclusion>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-tomcat</artifactId>
-            </exclusion>
-        </exclusions>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-tomcat</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-undertow</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-undertow</artifactId>
     </dependency>
 
     <!--<dependency>-->
@@ -71,48 +71,43 @@
     <!--<scope>runtime</scope>-->
     <!--</dependency>-->
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-test</artifactId>
-        <scope>test</scope>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-validator</artifactId>
-        <version>5.1.3.Final</version>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>5.1.3.Final</version>
     </dependency>
-</dependencies>
+  </dependencies>
 
-<dependencyManagement>
+  <dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-bom</artifactId>
-            <version>7.4.5</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
+      <dependency>
+        <groupId>com.vaadin</groupId>
+        <artifactId>vaadin-bom</artifactId>
+        <version>7.4.5</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
-</dependencyManagement>
+  </dependencyManagement>
 
-<build>
+  <build>
     <plugins>
-        <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-        </plugin>
-
-        <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <dependencies>
-                <dependency>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>springloaded</artifactId>
-                    <version>1.2.3.RELEASE</version>
-                </dependency>
-            </dependencies>
-        </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>springloaded</artifactId>
+            <version>1.2.3.RELEASE</version>
+          </dependency>
+        </dependencies>
+      </plugin>
     </plugins>
-</build>
+  </build>
 
 </project>
