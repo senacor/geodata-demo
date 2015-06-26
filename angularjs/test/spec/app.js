@@ -14,22 +14,22 @@ describe('Routes test', function () {
         $httpBackend.expectGET('views/welcome.html').respond(200, 'main HTML');
     }));
 
-  it('should route welcome', function () {
-    expect($route.routes['/welcome'].controller).toBe('WelcomeCtrl');
-    expect($route.routes['/welcome'].templateUrl).
-      toEqual('views/welcome.html');
-  });
+    it('should route welcome', function () {
+        expect($route.routes['/welcome'].controller).toBe('WelcomeCtrl');
+        expect($route.routes['/welcome'].templateUrl).
+            toEqual('views/welcome.html');
+    });
 
-  it('should route playground', function () {
-    expect($route.routes['/playground'].controller).toBe('PlaygroundCtrl');
-    expect($route.routes['/playground'].templateUrl).
-      toEqual('views/playground.html');
-  });
+    it('should route playground', function () {
+        expect($route.routes['/playground'].controller).toBe('PlaygroundCtrl');
+        expect($route.routes['/playground'].templateUrl).
+            toEqual('views/playground.html');
+    });
 
-    it('should route view1', function () {
-        expect($route.routes['/view1'].controller).toBe('View1Ctrl');
-        expect($route.routes['/view1'].templateUrl).
-            toEqual('views/view1.html');
+    it('should route postalcodeLookup', function () {
+        expect($route.routes['/postalcodeLookup'].controller).toBe('PostalcodeLookupCtrl');
+        expect($route.routes['/postalcodeLookup'].templateUrl).
+            toEqual('views/postalcodeLookup.html');
     });
 
     it('should route view2', function () {

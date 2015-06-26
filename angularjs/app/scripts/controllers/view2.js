@@ -8,5 +8,5 @@
  * Controller of the angularjsApp
  */
 angular.module('angularjsApp')
-  .controller('View2Ctrl', function ($scope) {
-  });
+    .controller('View2Ctrl', function ($scope) {
+    });
