@@ -8,10 +8,13 @@
  *
  * Main module of the application.
  */
-angular
-    .module('angularjsApp', ['ngRoute'])
+var angularjsApp = angular.module('angularjsApp', ['ngRoute'])
     .config(function ($routeProvider) {
         $routeProvider.
+            when('/', {
+              templateUrl: 'views/welcome.html',
+              controller: 'WelcomeCtrl'
+            }).
             when('/view1', {
                 templateUrl: 'views/view1.html',
                 controller: 'View1Ctrl'
@@ -29,6 +32,6 @@ angular
                 controller: 'View4Ctrl'
             }).
             otherwise({
-                redirectTo: '/view1'
+                redirectTo: '/'
             });
     });

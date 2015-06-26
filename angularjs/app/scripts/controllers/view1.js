@@ -7,6 +7,5 @@
  * # MainCtrl
  * Controller of the angularjsApp
  */
-angular.module('angularjsApp', ['ngRoute'])
-    .controller('View1Ctrl', function ($scope) {
+angularjsApp.controller('View1Ctrl', function ($scope) {
     });
