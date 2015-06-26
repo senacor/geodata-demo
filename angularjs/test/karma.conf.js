@@ -24,6 +24,8 @@ module.exports = function (config) {
             // bower:js
             'bower_components/jquery/dist/jquery.js',
             'bower_components/angular/angular.js',
+            'bower_components/ngstorage/ngStorage.js',
+            'bower_components/oauth-ng/dist/oauth-ng.js',
             'bower_components/angular-route/angular-route.js',
             'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
             'bower_components/angular-mocks/angular-mocks.js',
