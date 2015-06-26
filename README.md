@@ -1,15 +1,15 @@
 # GeoData RIA Demo
 
 
-== Basic presumptions
+## Basic presumptions
 
 * Single page application
 
-== Use Cases 
+## Use Cases 
 
 The main area of activity is the so called main portal.
 
-=== Main portal
+### Main portal
 
 * Main portal
 ** Menu sidebar (dynamic, slide in and out)
@@ -17,20 +17,20 @@ The main area of activity is the so called main portal.
 ** Center current view depending on activity chosen in the sidebar
 
 
-=== Menu sidebar
+### Menu sidebar
 
 todo
 
-=== Status bar
+### Status bar
 
 todo
 
-=== My profile
+### My profile
 
 todo
 
 
-===  Activities
+###  Activities
 
 Activities are accessed via the menu sidebar
 
@@ -38,7 +38,7 @@ Activities are accessed via the menu sidebar
 * Metro data for city
 * Historical data - maybe temp. over last x days 
 
-==== User administration
+#### User administration
 
 todo
 
@@ -47,7 +47,7 @@ todo
 ** Role system: User, Admin
 ** If not logged in, redirect to login
 
-== Technical background
+## Technical background
 
 * Underlying service: http://www.geonames.org/
 * http://www.earthtools.org/webservices.htm
