@@ -15,6 +15,10 @@ var angularjsApp = angular.module('angularjsApp', ['ngRoute'])
               templateUrl: 'views/welcome.html',
               controller: 'WelcomeCtrl'
             }).
+            when('/playground', {
+              templateUrl: 'views/playground.html',
+              controller: 'PlaygroundController'
+            }).
             when('/view1', {
                 templateUrl: 'views/view1.html',
                 controller: 'View1Ctrl'

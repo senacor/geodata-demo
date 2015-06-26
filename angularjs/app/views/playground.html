@@ -1,0 +1,29 @@
+<div class="row">
+  <h1>playground</h1>
+
+  <!-- bind input to model -->
+  <input type="text" ng-model="inputString"/> <span>Input: {{ inputString}}</span>
+
+  <h3>repeat, sort, filter</h3>
+  <div>
+  <span>Filter by Name:</span><br />
+  <input type="text" data-ng-model="nameText" />
+    <ul>
+      <li data-ng-repeat="customer in customers | filter:nameText | orderBy:'name'">
+        {{ customer.name | uppercase }} - {{customer.city }}
+      </li>
+    </ul>
+  </div>
+
+  <h3>input</h3>
+  <div>
+    Customer Name: <br />
+    <input type="text" data-ng-model="inputData.name" />
+    <br />
+    Customer City: <br />
+    <input type="text" data-ng-model="inputData.city" />
+    <br />
+    <button  class="btn btn-primary" data-ng-click="addCustomer()">Add Customer</button>
+  </div>
+
+</div>
