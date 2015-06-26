@@ -1,0 +1,60 @@
+$v-app-loading-text: "Loading geoData...please wait.";
+//$v-background-color: #0ea5d7;
+//$v-app-background-color: lighten($v-background-color, 80%);
+
+// Font Settings
+//$v-font-color: #464440;
+$v-font-size: 14px;
+//$v-font-family: Helvetica, sans-serif;
+
+// Component Features
+//$v-border-radius: 0px;
+//$v-border: 2px solid v-tone;
+//$v-gradient: v-linear 20%;
+//$v-focus-style: 0 0 0 1px v-tint;
+
+
+
+@import "../valo/valo";
+
+//$v-bevel: 0;
+$valo-menu-background-color: #414B56;
+
+
+
+@mixin geodata {
+  @include valo;
+
+  .geodata-menu {
+    padding-left: 0.5em;
+    background-color: $valo-menu-background-color;
+    color: white;
+    font-size: 0.9em;
+
+    .geodata-menu-title {
+      //text-decoration: underline;
+      font-size: 1.1em;
+      padding-bottom: 0.5em;
+    }
+
+    .geodata-menu-item {
+      font-size: 0.9em;
+    }
+    
+    .geodata-menu-logout {
+      padding-top: 1em;
+    }
+  }
+
+  .geodata-inner-view {
+    padding-left: 0.5em;
+
+    .geodata-inner-contents {
+      border: 0;
+    }
+  }
+
+  .geodata-header-bar {
+  }
+
+}

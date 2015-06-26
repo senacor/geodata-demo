@@ -50,6 +50,7 @@ todo
 == Technical background
 
 * Underlying service: http://www.geonames.org/
+* http://www.earthtools.org/webservices.htm
 * Integration of OAuth - maybe google+ and twitter
 * Responsive design
 * Custom CSS

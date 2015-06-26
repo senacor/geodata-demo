@@ -1,26 +1,28 @@
 package com.senacor.geodata.views;
 
-import com.vaadin.annotations.Theme;
+import com.senacor.geodata.GeoDataUI;
 import com.vaadin.event.ShortcutAction;
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
-
-import javax.annotation.PostConstruct;
 
 /**
  * Created by dschmitz on 14/06/15.
  */
-@SpringView(name = LoginView.VIEW_NAME)
-@Theme("valo")
-public class LoginView extends VerticalLayout implements View {
+//@Theme("valo")
+public class LoginView extends VerticalLayout {
     public static final String VIEW_NAME = "";
+    private final GeoDataUI geoDataUI;
 
-    @PostConstruct
-    protected void init() {
+    public LoginView(GeoDataUI geoDataUI) {
+        this.geoDataUI = geoDataUI;
         setSizeFull();
 
         VerticalLayout layout = new VerticalLayout();
@@ -39,9 +41,8 @@ public class LoginView extends VerticalLayout implements View {
 
     private Component buildLoginButton() {
         Button login = new Button("Log into GeoData", (event) -> {
-            UI.getCurrent().getNavigator().navigateTo(GeoDataPortalView.VIEW_NAME);
+            geoDataUI.userLoggedIn();
         });
-//        login.setDescription("Click on this button to login");
         login.addStyleName(ValoTheme.BUTTON_PRIMARY);
         login.addStyleName(ValoTheme.BUTTON_SMALL);
         login.setClickShortcut(ShortcutAction.KeyCode.ENTER);
@@ -56,14 +57,12 @@ public class LoginView extends VerticalLayout implements View {
         layout.setSpacing(true);
 
         TextField loginName = new TextField("Login account name", "");
-//        loginName.setDescription("Enter your login name into this field");
         loginName.setIcon(FontAwesome.USER);
         loginName.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
         loginName.setRequired(true);
         layout.addComponent(loginName);
 
         PasswordField passwordField = new PasswordField("Password for logging in", "");
-//        passwordField.setDescription("Enter your password into this field");
         passwordField.setIcon(FontAwesome.USER);
         passwordField.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
         passwordField.setRequired(true);
@@ -82,10 +81,5 @@ public class LoginView extends VerticalLayout implements View {
 
         layout.addComponents(header, new Label("Please enter your credentials and log in"));
         return layout;
-    }
-
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-        // see init
     }
 }

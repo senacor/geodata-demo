@@ -1,100 +1,79 @@
 package com.senacor.geodata.views;
 
-import com.senacor.geodata.service.GeoDataService;
+import javax.annotation.PostConstruct;
+
+import com.senacor.geodata.views.components.MenuBar;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.*;
-import com.vaadin.ui.themes.ValoTheme;
+import com.vaadin.spring.navigator.SpringViewProvider;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.annotation.PostConstruct;
 
 /**
  * Created by dschmitz on 16/06/15.
  */
 @SpringView(name = GeoDataPortalView.VIEW_NAME)
-public class GeoDataPortalView extends VerticalLayout implements View {
+public class GeoDataPortalView extends HorizontalLayout implements View {
     public static final String VIEW_NAME = "GEODATAPORTALVIEW";
-
-    private GeoDataService geoDataService;
+    private SpringViewProvider viewProvider;
 
     @Autowired
-    public GeoDataPortalView(GeoDataService geoDataService) {
+    public GeoDataPortalView(SpringViewProvider viewProvider) {
         super();
-        this.geoDataService = geoDataService;
+        this.viewProvider = viewProvider;
+        initGui();
     }
 
     @PostConstruct
     public void init() {
-        setSizeFull();
-        VerticalLayout layout = new VerticalLayout();
-        layout.setSizeFull();
-
-        layout.addComponent(buildHeader());
-
-        HorizontalLayout innerContents = new HorizontalLayout();
-        innerContents.setSizeFull();
-        innerContents.addComponent(buildMenubar());
-        innerContents.addComponent(buildOverview());
-
-        layout.addComponent(innerContents);
-
-        addComponent(layout);
+        initGui();
     }
 
-    private Component buildOverview() {
-        return new Label("Welcome");
+    private void initGui() {
+        setSizeFull();
+
+        addComponent(buildMenubar());
+
+        Component inner = buildInnerView();
+        addComponent(inner);
+
+        setExpandRatio(inner, 1.0f);
+    }
+
+    private Component buildInnerView() {
+        VerticalLayout layout = new VerticalLayout();
+        layout.setSizeFull();
+        layout.addStyleName("geodata-inner-view");
+
+        CssLayout component = buildOverview();
+        layout.addComponent(component);
+        layout.setExpandRatio(component, 1.0f);
+
+        Navigator navigator = new Navigator(UI.getCurrent(), component);
+        navigator.addProvider(this.viewProvider);
+        return layout;
+    }
+
+    private CssLayout buildOverview() {
+        CssLayout layout = new CssLayout();
+        layout.setSizeFull();
+        layout.addStyleName("geodata-inner-contents");
+        return layout;
     }
 
     private Component buildMenubar() {
-        return new Label("Menubar");
-    }
-
-    private Component buildHeader() {
-        HorizontalLayout layout = new HorizontalLayout();
-        layout.setSizeFull();
-        layout.addComponent(buildLogo());
-
-        Component profile = buildMyProfile();
-        layout.addComponent(profile);
-        layout.setComponentAlignment(profile, Alignment.MIDDLE_RIGHT);
-
-        Component logout = buildLogout();
-        layout.addComponent(logout);
-        layout.setComponentAlignment(logout, Alignment.MIDDLE_RIGHT);
-        return layout;
-    }
-
-    private Component buildLogout() {
-        Button logout = new Button("Logout", (event) -> {
-            Notification.show("You are being logged out...", Notification.Type.TRAY_NOTIFICATION);
-
-            UI.getCurrent().getNavigator().navigateTo(LoginView.VIEW_NAME);
-        });
-        logout.addStyleName(ValoTheme.BUTTON_TINY);
-        return logout;
-    }
-
-    private Component buildMyProfile() {
-        HorizontalLayout layout = new HorizontalLayout();
-
-        Label label = new Label("User: R. Hotzenplotz");
-        label.setIcon(FontAwesome.USER);
-        label.addStyleName(ValoTheme.LABEL_TINY);
-
-        layout.addComponent(label);
-        return layout;
-    }
-
-    private Component buildLogo() {
-        //new Image("GeoDataLogo", )
-        return new Label("Logo");
+        return new MenuBar();
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-        Notification.show("Welcome", "Login successful - enjoy GeoData", Notification.Type.HUMANIZED_MESSAGE);
+        Notification.show("Welcome", "Login successful - enjoy geoData", Notification.Type.HUMANIZED_MESSAGE);
     }
 }
