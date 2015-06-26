@@ -10,8 +10,11 @@
 angular.module('angularjsApp')
     .controller('PostalcodeCtrl', function ($scope, $http) {
         $scope.search = function () {
-            $http.get('http://api.geonames.org/findNearbyPostalCodesJSON?country=CH&radius=10&username=demo&postalcode=' + $scope.postalCode)
+            $http.get('http://api.geonames.org/findNearbyPostalCodesJSON?country=DE&radius=10&username=demo&postalcode=' + $scope.postalCode)
                 .success(function (response) {
+                    if (response.status) {
+                        console.error(response.status.message);
+                    }
                     $scope.codes = response.postalCodes;
                 });
         }
