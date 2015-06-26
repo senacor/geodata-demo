@@ -1,5 +1,10 @@
 <div class="jumbotron">
   <ul>
+    <form novalidate>
+      Postal code:<br>
+      <input type="text" ng-model="postalCode"><br>
+      <button ng-click="search()">Search</button>
+    </form>
     <li ng-repeat="code in codes">
       {{ code.postalCode + ', ' + code.placeName }}
     </li>
