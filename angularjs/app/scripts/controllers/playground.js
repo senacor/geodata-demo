@@ -1,5 +1,7 @@
 'use strict';
 
+var angularjsApp = angular.module('angularjsApp');
+
 angularjsApp.factory('simpleFactory', function () {
   var customers = [
     {name: 'Maria', city: 'Bonn'},
@@ -13,28 +15,24 @@ angularjsApp.factory('simpleFactory', function () {
     return customers;
   };
 
-  factory.postCustomer = function(customer) {
-
-  };
   return factory;
 });
 
 /**
  * @ngdoc function
- * @name angularjsApp.controller:MainCtrl
+ * @name angularjsApp.controller:PlaygroundCtrl
  * @description
- * # MainCtrl
+ * # PlaygroundCtrl
  * Controller of the angularjsApp
  */
-angularjsApp.controller('PlaygroundController', function ($scope, simpleFactory) {
+angularjsApp.controller('PlaygroundCtrl', function ($scope, simpleFactory) {
 
   $scope.customers = [];
-
-  init();
 
   function init() {
     $scope.customers = simpleFactory.getCustomers();
   }
+  init();
 
   $scope.addCustomer = function () {
     $scope.customers.push({name: $scope.inputData.name, city: $scope.inputData.city});

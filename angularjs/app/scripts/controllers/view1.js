@@ -2,10 +2,11 @@
 
 /**
  * @ngdoc function
- * @name angularjsApp.controller:MainCtrl
+ * @name angularjsApp.controller:View1Ctrl
  * @description
- * # MainCtrl
+ * # View1Ctrl
  * Controller of the angularjsApp
  */
-angularjsApp.controller('View1Ctrl', function ($scope) {
-    });
+angular.module('angularjsApp')
+  .controller('View1Ctrl', function ($scope) {
+  });

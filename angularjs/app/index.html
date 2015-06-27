@@ -21,13 +21,25 @@
 
 <div ng-controller="OAuthCtrl">
 
-<div class="header row">
-  <div class="col-xs-6">
+<div class="header container-fluid">
+  <div class="row">
+  <div class="col-xs-6 col-lg-4 ">
     <div ng-hide="!loggedIn">
       <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
     </div>
   </div>
-  <div class="col-xs-6 text-right">
+  <div class="col-lg-4 hidden-xs hidden-sm hidden-md text-center">
+    <div ng-hide="!loggedIn">
+      <h5>GeoData</h5>
+    </div>
+  </div>
+  <div class="col-xs-6 col-lg-4 text-right">
+    <span class="" ng-show="loggedIn">
+      {{ userinfo.name}}
+    </span>
+    <span class="hidden-xs hidden-sm hidden-md" ng-show="loggedIn && userinfo.email">
+      ({{ userinfo.email }})
+    </span>
     <div class="btn btn-default">
       <oauth
         site="https://accounts.google.com/"
@@ -39,6 +51,7 @@
         state="">
       </oauth>
     </div>
+  </div>
   </div>
 </div>
 
@@ -108,6 +121,7 @@
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="scripts/app.js"></script>
+<script src="scripts/controllers/oauth.js"></script>
 <script src="scripts/controllers/welcome.js"></script>
 <script src="scripts/controllers/playground.js"></script>
 <script src="scripts/controllers/view1.js"></script>
