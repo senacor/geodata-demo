@@ -11,8 +11,20 @@ describe('Routes test', function () {
     }));
 
     beforeEach(inject(function ($httpBackend) {
-        $httpBackend.expectGET('views/view1.html').respond(200, 'main HTML');
+        $httpBackend.expectGET('views/welcome.html').respond(200, 'main HTML');
     }));
+
+  it('should route welcome', function () {
+    expect($route.routes['/welcome'].controller).toBe('WelcomeCtrl');
+    expect($route.routes['/welcome'].templateUrl).
+      toEqual('views/welcome.html');
+  });
+
+  it('should route playground', function () {
+    expect($route.routes['/playground'].controller).toBe('PlaygroundCtrl');
+    expect($route.routes['/playground'].templateUrl).
+      toEqual('views/playground.html');
+  });
 
     it('should route view1', function () {
         expect($route.routes['/view1'].controller).toBe('View1Ctrl');
@@ -38,12 +50,12 @@ describe('Routes test', function () {
             toEqual('views/view4.html');
     });
 
-    it('should map / to view1', function () {
+    it('should map / to welcome', function () {
         expect($route.current).toBeUndefined();
         $location.path('/');
         $rootScope.$digest();
 
-        expect($location.path()).toBe('/view1');
+        expect($location.path()).toBe('/welcome');
     });
 
 });

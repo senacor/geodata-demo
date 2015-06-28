@@ -7,34 +7,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css(.) styles/vendor.css -->
-
-  <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
-  <script src="scripts/app.js"></script>
-  <script src="scripts/controllers/main.js"></script>
   <link rel="stylesheet" href="styles/main.css">
   <link href="styles/simple-sidebar.css" rel="stylesheet">
 
   <title>Simple Sidebar - Start Bootstrap Template</title>
 
 </head>
-<body ng-app="angularjsApp">
+<body data-ng-app="angularjsApp" ng-cloak>
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to
   improve your experience.</p>
 <![endif]-->
 
-<div class="header">
-  <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+<div ng-controller="OAuthCtrl">
+
+<div class="header container-fluid">
+  <div class="row">
+  <div class="col-xs-6 col-lg-4 ">
+    <div ng-hide="!loggedIn">
+      <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+    </div>
+  </div>
+  <div class="col-lg-4 hidden-xs hidden-sm hidden-md text-center">
+    <div ng-hide="!loggedIn">
+      <h5>GeoData</h5>
+    </div>
+  </div>
+  <div class="col-xs-6 col-lg-4 text-right">
+    <span class="" ng-show="loggedIn">
+      {{ userinfo.name}}
+    </span>
+    <span class="hidden-xs hidden-sm hidden-md" ng-show="loggedIn && userinfo.email">
+      ({{ userinfo.email }})
+    </span>
+    <div class="btn btn-default">
+      <oauth
+        site="https://accounts.google.com/"
+        authorize-path="o/oauth2/auth"
+        client-id="257791246078-igmhr5ti2l6cgtfm4p3oje1t9dhuotsr.apps.googleusercontent.com"
+        redirect-uri="http://localhost:9000/"
+        profile-uri=""
+        scope="email profile"
+        state="">
+      </oauth>
+    </div>
+  </div>
+  </div>
 </div>
 
+
+<div ng-show="!loggedIn">
+  <div class="row">
+    <div class="jumbotron">
+      <h1>Welcome to GeoData</h1>
+    </div>
+  </div>
+</div>
+
+<div ng-show="loggedIn">
 <div id="wrapper">
 
   <!-- Sidebar -->
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
+      <li>
+        <a href="#welcome">Welcome</a>
+      </li>
       <li>
         <a href="#view1">View1</a>
       </li>
@@ -52,31 +90,53 @@
   <!-- /#sidebar-wrapper -->
 
   <!-- Page Content -->
-  <div id="page-content-wrapper">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="container">
-            <div ng-view></div>
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="container">
+              <div data-ng-view></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   <!-- /#page-content-wrapper -->
-
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function (e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
 
 </div>
 <!-- /#wrapper -->
+</div>
+</div>
 
-
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/ngstorage/ngStorage.js"></script>
+<script src="bower_components/oauth-ng/dist/oauth-ng.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+<!-- endbower -->
 <!-- endbuild -->
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/oauth.js"></script>
+<script src="scripts/controllers/welcome.js"></script>
+<script src="scripts/controllers/playground.js"></script>
+<script src="scripts/controllers/view1.js"></script>
+<script src="scripts/controllers/view2.js"></script>
+<script src="scripts/controllers/view3.js"></script>
+<script src="scripts/controllers/view4.js"></script>
+<!-- endbuild -->
+
+<!-- Menu Toggle Script -->
+<script>
+  $("#menu-toggle").click(function (e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  });
+</script>
+
 </body>
 </html>
