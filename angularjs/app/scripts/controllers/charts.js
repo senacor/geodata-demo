@@ -94,8 +94,12 @@ angularjsApp
       var data = [];
       var numberOfCountries = geonames.length;
       for (var i = 0; i < numberOfCountries; i++) {
+        var areaInSqKm = getCountryAreaInSqKm(geonames[i].geonameId);
+        if (areaInSqKm < 20000) {
+          areaInSqKm = 20000;
+        }
         var countryChartData = {
-              value: getCountryAreaInSqKm(geonames[i].geonameId),
+              value: areaInSqKm,
               color: getColor(i, geonames[i].name),
               highlight: getHighlightColor(i, geonames[i].name),
               label: geonames[i].name,
@@ -121,9 +125,22 @@ angularjsApp
       {colorName: 'Grey',
         color: '#949FB1',
         highlight: '#A8B3C5'},
+      { colorName: 'Lila',
+        color: '#8B2F8B',
+        highlight: '#A045A0'},
+      { colorName: 'Blue',
+        color: '#5B5393',
+        highlight: '#847EB1'},
+      { colorName: 'Navi',
+        color: '#4B5300',
+        highlight: '#737D15'},
       { colorName: 'Dark Grey',
         color: '#4D5360',
-        highlight: '#616774'}
+        highlight: '#616774'},
+      { colorName: 'Green',
+        color: '#41AE3B',
+        highlight: '#5CC757'}
+
     ];
 
     function getColor(index, countryName) {
