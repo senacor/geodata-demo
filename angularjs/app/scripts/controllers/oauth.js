@@ -2,14 +2,12 @@
 
 var angularjsApp = angular.module('angularjsApp');
 
-angularjsApp.factory('userInfoFactory', ['$http', 'AccessToken', function ($http, AccessToken) {
+angularjsApp.factory('userInfoFactory', ['$http', function ($http) {
   var factory = {};
-  factory.getUserInfo = function () {
-    var accessToken = AccessToken.token.access_token;
+  factory.getUserInfo = function (accessToken) {
     return $http.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + accessToken);
   };
-  factory.getTokenInfo = function () {
-    var accessToken = AccessToken.token.access_token;
+  factory.getTokenInfo = function (accessToken) {
     return $http.get('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=' + accessToken);
   };
   return factory;
@@ -49,35 +47,44 @@ angularjsApp.controller('OAuthCtrl', function ($scope, $timeout, AccessToken, us
   }
 
   $scope.$on('oauth:login', function (event, token) {
-    $scope.setLoginData(token);
-    loadUserInfo();
-    loadTokenInfo();
+    var accessToken = token.access_token;
+    setLoginData(accessToken);
+    loadUserInfo(accessToken);
+    loadTokenInfo(accessToken);
   });
 
   $scope.$on('oauth:authorized', function (event, token) {
-    $scope.setLoginData(token);
+    var accessToken = token.access_token;
+    setLoginData(accessToken);
     if ($scope.userinfo === null || $scope.userinfo.id === null) {
-      loadUserInfo();
+      loadUserInfo(accessToken);
     }
     if ($scope.tokenInfo === null || $scope.tokenInfo.expiresIn === null) {
-      loadTokenInfo();
+      loadTokenInfo(accessToken);
     }
   });
 
   $scope.$on('oauth:logout', function (event) {
-    $scope.accessToken = null;
-    $scope.loggedIn = false;
-    $scope.tokenInfo = null;
-    $scope.userinfo = emptyUserInfo();
+    clearLoginData();
   });
 
-  $scope.setLoginData = function (token) {
-    this.accessToken = token.access_token;
-    this.loggedIn = true;
-  };
+  function clearLoginData() {
+    $scope.accessToken = null;
+    $scope.loggedIn = false;
+    $scope.tokenInfo =  {
+      'expiresAt': null,
+      'expiresIn': null
+    };
+    $scope.userinfo = emptyUserInfo();
+  }
 
-  function loadUserInfo() {
-    userInfoFactory.getUserInfo()
+  function setLoginData(token) {
+    $scope.accessToken = token;
+    $scope.loggedIn = true;
+  }
+
+  function loadUserInfo(accessToken) {
+    userInfoFactory.getUserInfo(accessToken)
       .success(function (data) {
         $scope.userinfo = data;
       })
@@ -88,8 +95,8 @@ angularjsApp.controller('OAuthCtrl', function ($scope, $timeout, AccessToken, us
       });
   }
 
-  function loadTokenInfo() {
-    userInfoFactory.getTokenInfo()
+  function loadTokenInfo(accessToken) {
+    userInfoFactory.getTokenInfo(accessToken)
       .success(function (data) {
         $scope.tokenInfo.expiresIn = data.expires_in;
         $scope.tokenInfo.expiresAt = Date.now() + (data.expires_in * 1000);

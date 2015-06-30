@@ -28,6 +28,8 @@ module.exports = function (config) {
             'bower_components/oauth-ng/dist/oauth-ng.js',
             'bower_components/angular-route/angular-route.js',
             'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+            'bower_components/Chart.js/Chart.js',
+            'bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.min.js',
             'bower_components/angular-mocks/angular-mocks.js',
             // endbower
             "app/scripts/app.js",
