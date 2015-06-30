@@ -1,12 +1,15 @@
 package com.senacor.geodata.views;
 
-import javax.annotation.PostConstruct;
-
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+
+import javax.annotation.PostConstruct;
+
+import static com.senacor.geodata.views.components.ComponentUtil.buildHeaderLabel;
 
 /**
  * @author dschmitz
@@ -17,9 +20,10 @@ public class PostalCodeView extends VerticalLayout implements View {
 
     @PostConstruct
     protected void init() {
-        setSizeFull();
+        addComponent(buildHeaderLabel("Postal Code"));
 
-        addComponent(new Label("..."));
+        addComponent(new Label("This page illustrates using complex components and tables.",
+                ContentMode.HTML));
     }
 
     @Override
