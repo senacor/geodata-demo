@@ -3,6 +3,10 @@
     <form>
       Postal code:<br>
       <input type="number" ng-model="postalCode" required><br>
+      Country:<br>
+      <select required ng-model="country" ng-init="country=countries[0]" ng-options="item as item.name for item in countries">
+        <option></option>
+      </select>
       <button type="submit" class="btn btn-primary" ng-click="search()">Search</button>
     </form>
     <li ng-repeat="code in codes">
