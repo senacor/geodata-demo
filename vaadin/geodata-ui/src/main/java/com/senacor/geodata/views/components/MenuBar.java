@@ -1,22 +1,15 @@
 package com.senacor.geodata.views.components;
 
 import com.senacor.geodata.GeoDataUI;
-import com.senacor.geodata.views.PlaceholderView;
+import com.senacor.geodata.views.CitySearchView;
+import com.senacor.geodata.views.EarthquakeStatisticsView;
+import com.senacor.geodata.views.PostalCodeView;
+import com.senacor.geodata.views.WeatherInformationView;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Image;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
@@ -90,13 +83,13 @@ public class MenuBar extends CustomComponent {
         final VerticalLayout menuItems = new VerticalLayout();
         menuItems.setSpacing(true);
 
-        menuItems.addComponent(createMenuItem("City search", FontAwesome.SEARCH, PlaceholderView.VIEW_NAME));
+        menuItems.addComponent(createMenuItem("City search", FontAwesome.SEARCH, CitySearchView.VIEW_NAME));
 
-        menuItems.addComponent(createMenuItem("Weather information", FontAwesome.SUN_O, PlaceholderView.VIEW_NAME));
+        menuItems.addComponent(createMenuItem("Weather information", FontAwesome.SUN_O, WeatherInformationView.VIEW_NAME));
 
-        menuItems.addComponent(createMenuItem("Postal code", FontAwesome.BUILDING, PlaceholderView.VIEW_NAME));
+        menuItems.addComponent(createMenuItem("Postal code", FontAwesome.BUILDING, PostalCodeView.VIEW_NAME));
 
-        menuItems.addComponent(createMenuItem("Earthquake statistics", FontAwesome.BAR_CHART_O, PlaceholderView.VIEW_NAME));
+        menuItems.addComponent(createMenuItem("Earthquake statistics", FontAwesome.BAR_CHART_O, EarthquakeStatisticsView.VIEW_NAME));
 
         menuItems.addComponent(buildLogout());
 
@@ -108,9 +101,7 @@ public class MenuBar extends CustomComponent {
         button.setIcon(icon);
         button.setPrimaryStyleName(ValoTheme.MENU_ITEM);
         button.addStyleName("geodata-menu-item");
-        button.addClickListener(event -> {
-            UI.getCurrent().getNavigator().navigateTo(targetView);
-        });
+        button.addClickListener(event -> UI.getCurrent().getNavigator().navigateTo(targetView));
         return button;
     }
 

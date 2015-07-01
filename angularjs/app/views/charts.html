@@ -1,0 +1,36 @@
+
+<style>
+  .tc-chart-js-legend {
+    list-style-type: none;
+    padding-left: 0px;
+  }
+  .tc-chart-js-legend li {
+    display: block;
+    float: left;
+    clear:both;
+    padding:10px;
+  }
+  .tc-chart-js-legend li span {
+    width:25px;
+    height:25px;
+    display:block;
+    float:left;
+    margin-right:10px;
+  }
+</style>
+
+<div class="row">
+  <div class="col-xs-12 columns">
+    <h1>Neighbours of {{ country.name }}</h1>
+    <hr>
+  </div>
+
+
+  <div class="col-md-9">
+    <canvas chart-legend="pieChart1" chart-data="data" chart-options="options" tc-chartjs-pie="" class="ng-isolate-scope" chart="chart" ng-click="handleChartClick($event)"></canvas>
+  </div>
+  <div class="col-md-3">
+    <div chart-legend="pieChart1" tc-chartjs-legend="" class="ng-isolate-scope"></div>
+  </div>
+
+</div>

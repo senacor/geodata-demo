@@ -75,53 +75,55 @@
   </div>
 
   <div ng-show="loggedIn">
-    <div id="wrapper">
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li>
+          <a href="#welcome">Welcome</a>
+        </li>
+        <li>
+          <a href="#charts">Charts</a>
+        </li>
+        <li>
+          <a href="#postalcodeLookup">Postalcodes</a>
+        </li>
+        <li>
+          <a href="#view2">View2</a>
+        </li>
+        <li>
+          <a href="#view3">View3</a>
+        </li>
+        <li>
+          <a href="#view4">View4</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
 
-      <!-- Sidebar -->
-      <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-          <li>
-            <a href="#welcome">Welcome</a>
-          </li>
-          <li>
-            <a href="#postalcodeLookup">Postal Codes</a>
-          </li>
-          <li>
-            <a href="#view2">View2</a>
-          </li>
-          <li>
-            <a href="#view3">View3</a>
-          </li>
-          <li>
-            <a href="#view4">View4</a>
-          </li>
-        </ul>
-      </div>
-      <!-- /#sidebar-wrapper -->
-
-      <!-- Page Content -->
-      <div id="page-content-wrapper">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="container">
-                <div data-ng-view></div>
-              </div>
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="container">
+              <div data-ng-view></div>
             </div>
           </div>
         </div>
       </div>
-      <!-- /#page-content-wrapper -->
-
     </div>
-    <!-- /#wrapper -->
+    <!-- /#page-content-wrapper -->
+
   </div>
+  <!-- /#wrapper -->
+</div>
 </div>
 
 <!-- build:js(.) scripts/vendor.js -->
 <!-- bower:js -->
 <script src="bower_components/ngstorage/ngStorage.js"></script>
 <script src="bower_components/oauth-ng/dist/oauth-ng.js"></script>
+<script src="bower_components/Chart.js/Chart.js"></script>
+<script src="bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.min.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -129,6 +131,7 @@
 <script src="scripts/app.js"></script>
 <script src="scripts/controllers/oauth.js"></script>
 <script src="scripts/controllers/welcome.js"></script>
+<script src="scripts/controllers/charts.js"></script>
 <script src="scripts/controllers/playground.js"></script>
 <script src="scripts/controllers/postalcodeLookup.js"></script>
 <script src="scripts/controllers/view2.js"></script>

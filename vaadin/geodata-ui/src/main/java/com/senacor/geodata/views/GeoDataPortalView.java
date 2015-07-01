@@ -1,23 +1,18 @@
 package com.senacor.geodata.views;
 
-import javax.annotation.PostConstruct;
-
 import com.senacor.geodata.views.components.MenuBar;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.navigator.SpringViewProvider;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
+
 /**
- * Created by dschmitz on 16/06/15.
+ * @author dschmitz
  */
 @SpringView(name = GeoDataPortalView.VIEW_NAME)
 public class GeoDataPortalView extends HorizontalLayout implements View {
@@ -38,7 +33,6 @@ public class GeoDataPortalView extends HorizontalLayout implements View {
 
     private void initGui() {
         setSizeFull();
-
         addComponent(buildMenubar());
 
         Component inner = buildInnerView();
@@ -65,6 +59,8 @@ public class GeoDataPortalView extends HorizontalLayout implements View {
         CssLayout layout = new CssLayout();
         layout.setSizeFull();
         layout.addStyleName("geodata-inner-contents");
+
+        layout.addComponent(new WelcomeView());
         return layout;
     }
 

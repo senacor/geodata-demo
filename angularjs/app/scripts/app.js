@@ -8,12 +8,16 @@
  *
  * Main module of the application.
  */
-var angularjsApp = angular.module('angularjsApp', ['oauth', 'ngRoute'])
+var angularjsApp = angular.module('angularjsApp', ['oauth', 'ngRoute', 'tc.chartjs'])
     .config(function ($routeProvider) {
         $routeProvider.
             when('/welcome', {
                 templateUrl: 'views/welcome.html',
                 controller: 'WelcomeCtrl'
+            }).
+            when('/charts', {
+                templateUrl: 'views/charts.html',
+                controller: 'ChartsCtrl'
             }).
             when('/playground', {
                 templateUrl: 'views/playground.html',

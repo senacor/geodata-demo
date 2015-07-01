@@ -21,7 +21,6 @@ $v-font-size: 14px;
 $valo-menu-background-color: #414B56;
 
 
-
 @mixin geodata {
   @include valo;
 
@@ -33,16 +32,16 @@ $valo-menu-background-color: #414B56;
 
     .geodata-menu-title {
       //text-decoration: underline;
-      font-size: 1.1em;
+      font-size: 1.5em;
       padding-bottom: 0.5em;
     }
 
     .geodata-menu-item {
-      font-size: 0.9em;
+      font-size: 1.1em;
     }
     
     .geodata-menu-logout {
-      padding-top: 1em;
+      padding-top: 1.1em;
     }
   }
 
