@@ -20,9 +20,25 @@ $v-font-size: 14px;
 //$v-bevel: 0;
 $valo-menu-background-color: #414B56;
 
+/* This font-face declaration must be outside your theme mixin. */
+@font-face {
+  font-family: 'Vaadin-Icons';
+  src: url('fonts/Vaadin-Icons.eot');
+  src: url('fonts/Vaadin-Icons.eot?#iefix') format('embedded-opentype'),
+  url('fonts/Vaadin-Icons.woff') format('woff'),
+  url('fonts/Vaadin-Icons.ttf') format('truetype'),
+  url('fonts/Vaadin-Icons.svg#icomoon') format('svg');
+}
+.Vaadin-Icons {
+  font-family: 'Vaadin-Icons';
+}
+
 
 @mixin geodata {
   @include valo;
+
+
+
 
   .geodata-menu {
     padding-left: 0.5em;

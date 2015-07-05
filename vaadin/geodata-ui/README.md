@@ -8,3 +8,4 @@
 * Add Error Views
 * Integrate Spring Security
 * Integrate RxJava
+* Refactor to MVP

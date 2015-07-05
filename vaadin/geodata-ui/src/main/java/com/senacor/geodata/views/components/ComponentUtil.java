@@ -2,6 +2,7 @@ package com.senacor.geodata.views.components;
 
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -25,4 +26,11 @@ public class ComponentUtil {
         button.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         return button;
     }
+
+    public static Component buildFormHeader(String caption) {
+        Label header = new Label(caption);
+        header.setStyleName(ValoTheme.LABEL_H3);
+        return header;
+    }
+
 }

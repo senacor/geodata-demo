@@ -1,5 +1,7 @@
 package com.senacor.geodata.model;
 
+import com.senacor.geodata.service.geoname.GeoName;
+
 import java.io.Serializable;
 
 /**
@@ -11,11 +13,24 @@ public class City implements Serializable {
     private final String name;
     private final MapPosition mapPosition;
     private final String country;
+    private final String geonameId;
+    private final String wikipedia;
 
-    public City(String name, String country, MapPosition mapPosition) {
+    public City(String geonameId, String name, String country, MapPosition mapPosition, String wikipedia) {
+        this.geonameId = geonameId;
         this.mapPosition = mapPosition;
         this.name = name;
         this.country = country;
+        this.wikipedia = wikipedia;
+    }
+
+    public City() {
+        this("", "", "", new MapPosition(0d, 0d), "");
+    }
+
+    public static City fromGeoName(GeoName geoName) {
+        return new City(geoName.getGeonameId(), geoName.getName(),
+                geoName.getCountrycode(), new MapPosition(geoName.getLat(), geoName.getLng()), geoName.getWikipedia());
     }
 
     public MapPosition getMapPosition() {
@@ -28,6 +43,34 @@ public class City implements Serializable {
 
     public String getCountry() {
         return country;
+    }
+
+    public String getGeonameId() {
+        return geonameId;
+    }
+
+    public String getWikipedia() {
+        return wikipedia;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        City city = (City) o;
+
+        if (name != null ? !name.equals(city.name) : city.name != null) return false;
+        if (mapPosition != null ? !mapPosition.equals(city.mapPosition) : city.mapPosition != null) return false;
+        return !(country != null ? !country.equals(city.country) : city.country != null);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (mapPosition != null ? mapPosition.hashCode() : 0);
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        return result;
     }
 
     @Override

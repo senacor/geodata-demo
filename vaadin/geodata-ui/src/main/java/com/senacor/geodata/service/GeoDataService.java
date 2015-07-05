@@ -1,6 +1,7 @@
 package com.senacor.geodata.service;
 
 import com.senacor.geodata.model.City;
+import com.senacor.geodata.model.Earthquake;
 import com.senacor.geodata.model.MapPositionBox;
 
 import javax.validation.constraints.NotNull;
@@ -20,4 +21,7 @@ public interface GeoDataService {
      */
     @NotNull
     List<City> findCitiesBy(@NotNull MapPositionBox mapPositionBox);
+
+    @NotNull
+    List<Earthquake> findRecentEarthquakesWithin(@NotNull MapPositionBox mapPositionBox);
 }
