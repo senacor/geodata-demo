@@ -5,7 +5,6 @@ import com.senacor.geodata.model.City;
 import com.senacor.geodata.model.Earthquake;
 import com.senacor.geodata.model.MapPosition;
 import com.senacor.geodata.model.MapPositionBox;
-import com.senacor.geodata.service.geoname.GeoNamesGeoDataService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,8 @@ import static org.junit.Assert.assertTrue;
 @WebAppConfiguration
 public class GeoNamesGeoDataServiceIT {
     @Autowired
-    private GeoNamesGeoDataService geoNamesGeoDataService;
+    @Platform(Platform.Systems.GEONAMES)
+    private GeoDataService geoNamesGeoDataService;
 
     @Test
     public void finding_cities_contains_mexico_city() {

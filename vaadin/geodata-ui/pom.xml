@@ -220,6 +220,7 @@
                             <include>**/*IT.java</include>
                         </includes>
                     </systemProperties>
+                    <skipTests>true</skipTests>
                 </configuration>
                 <executions>
                     <execution>
