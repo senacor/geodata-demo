@@ -1,4 +1,4 @@
-package com.senacor.geodata.views.components;
+package com.senacor.geodata.views.city;
 
 import com.senacor.geodata.model.City;
 import com.vaadin.data.Property;
@@ -42,7 +42,6 @@ public class CityDetails extends VerticalLayout implements Property.ValueChangeL
         form.addComponents(this.name, this.country, this.wikipedia);
         addComponent(form);
 
-
         HorizontalLayout buttonBar = new HorizontalLayout();
         buttonBar.setHeightUndefined();
         buttonBar.setWidth(100, Unit.PERCENTAGE);
@@ -50,7 +49,6 @@ public class CityDetails extends VerticalLayout implements Property.ValueChangeL
 
         Button button = buildPrimaryButton("Show Wikipedia");
         button.addClickListener(event -> {
-
             Window window = new Window();
             window.center();
             window.setSizeUndefined();
@@ -64,7 +62,6 @@ public class CityDetails extends VerticalLayout implements Property.ValueChangeL
             UI.getCurrent().addWindow(window);
         });
 
-        //ttp://maps.google.com/maps?z=12&t=m&q=loc:38.9419+-78.3020
         buttonBar.addComponent(button);
 
         Button mapsbutton = buildPrimaryButton("Show in Maps");
@@ -72,14 +69,11 @@ public class CityDetails extends VerticalLayout implements Property.ValueChangeL
             Window window = new Window();
             window.center();
             window.setSizeUndefined();
-            System.err.println("City=="+this.city);
-// add city details service
 
             String url = String.format("https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=%s~%s&lvl=12&w=600&h=400&sty=r&typ=s&pp=&ps=55&dir=0&mkt=de-de&src=SHELL&form=BMEMJS", this.city.getMapPosition().getLatitute(), this.city.getMapPosition().getLongitude());
 
             BrowserFrame browser = new BrowserFrame("Browser",
                     new ExternalResource(url));
-//                    new ExternalResource("http://maps.google.com/maps?z=12&t=h&q=loc:19.428472427036+-99.12766456604"));
             browser.setWidth("600px");
             browser.setHeight("400px");
 

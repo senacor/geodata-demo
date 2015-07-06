@@ -1,10 +1,10 @@
 package com.senacor.geodata.views.components;
 
 import com.senacor.geodata.GeoDataUI;
-import com.senacor.geodata.views.CitySearchView;
-import com.senacor.geodata.views.EarthquakeStatisticsView;
-import com.senacor.geodata.views.PostalCodeView;
-import com.senacor.geodata.views.WeatherInformationView;
+import com.senacor.geodata.views.city.CitySearchView;
+import com.senacor.geodata.views.earthquake.EarthquakeStatisticsView;
+import com.senacor.geodata.views.postalcode.PostalCodeView;
+import com.senacor.geodata.views.weather.WeatherInformationView;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
 import com.vaadin.server.ThemeResource;

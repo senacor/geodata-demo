@@ -1,7 +1,5 @@
 package com.senacor.geodata.views.events;
 
-import com.senacor.geodata.model.City;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -10,14 +8,14 @@ import java.util.List;
  *
  * @author dschmitz
  */
-public class SearchResultsChangedEvent {
-    private final List<City> searchResult;
+public class SearchResultsChangedEvent<T> {
+    private final List<T> searchResult;
 
-    public SearchResultsChangedEvent(List<City> searchResult) {
+    public SearchResultsChangedEvent(List<T> searchResult) {
         this.searchResult = Collections.unmodifiableList(searchResult);
     }
 
-    public List<City> getSearchResult() {
+    public List<T> getSearchResult() {
         return searchResult;
     }
 }

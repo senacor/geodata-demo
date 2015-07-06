@@ -9,8 +9,8 @@ import static com.senacor.geodata.views.components.ComponentUtil.buildHeaderLabe
 /**
  * @author dschmitz
  */
-public class WelcomeView extends VerticalLayout {
-    public WelcomeView() {
+public class Welcome extends VerticalLayout {
+    public Welcome() {
         setSizeUndefined();
         setSpacing(true);
 
@@ -20,6 +20,4 @@ public class WelcomeView extends VerticalLayout {
                 + "services.",
                 ContentMode.HTML));
     }
-
-
 }

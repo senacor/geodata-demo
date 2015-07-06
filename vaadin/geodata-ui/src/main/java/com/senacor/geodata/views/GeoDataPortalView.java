@@ -60,7 +60,7 @@ public class GeoDataPortalView extends HorizontalLayout implements View {
         layout.setSizeFull();
         layout.addStyleName("geodata-inner-contents");
 
-        layout.addComponent(new WelcomeView());
+        layout.addComponent(new Welcome());
         return layout;
     }
 

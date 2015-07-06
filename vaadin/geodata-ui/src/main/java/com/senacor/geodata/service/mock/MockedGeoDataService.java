@@ -18,9 +18,18 @@ import static java.lang.Math.random;
  */
 @Mock
 public class MockedGeoDataService implements GeoDataService {
-
+    // use Array generator syntax
     private static final List<Earthquake> EARTHQUAKES = Arrays.asList(
-            new Earthquake(UUID.randomUUID().toString(), 10 * random(), new MapPosition(0d, 0d), LocalDateTime.now(), 100 * random())
+            new Earthquake(UUID.randomUUID().toString(), 10 * random(), new MapPosition(20 * random(), 20 * random()), LocalDateTime.now(), 100 * random()),
+            new Earthquake(UUID.randomUUID().toString(), 10 * random(), new MapPosition(20 * random(), 20 * random()), LocalDateTime.now(), 100 * random()),
+            new Earthquake(UUID.randomUUID().toString(), 10 * random(), new MapPosition(20 * random(), 20 * random()), LocalDateTime.now(), 100 * random()),
+            new Earthquake(UUID.randomUUID().toString(), 10 * random(), new MapPosition(20 * random(), 20 * random()), LocalDateTime.now(), 100 * random()),
+            new Earthquake(UUID.randomUUID().toString(), 10 * random(), new MapPosition(20 * random(), 20 * random()), LocalDateTime.now(), 100 * random()),
+            new Earthquake(UUID.randomUUID().toString(), 10 * random(), new MapPosition(20 * random(), 20 * random()), LocalDateTime.now(), 100 * random()),
+            new Earthquake(UUID.randomUUID().toString(), 10 * random(), new MapPosition(20 * random(), 20 * random()), LocalDateTime.now(), 100 * random()),
+            new Earthquake(UUID.randomUUID().toString(), 10 * random(), new MapPosition(20 * random(), 20 * random()), LocalDateTime.now(), 100 * random()),
+            new Earthquake(UUID.randomUUID().toString(), 10 * random(), new MapPosition(20 * random(), 20 * random()), LocalDateTime.now(), 100 * random()),
+            new Earthquake(UUID.randomUUID().toString(), 10 * random(), new MapPosition(20 * random(), 20 * random()), LocalDateTime.now(), 100 * random())
     );
     private static int id = 1;
     private static final List<City> CITIES = Arrays.asList(

@@ -1,6 +1,6 @@
-package com.senacor.geodata.views.components;
+package com.senacor.geodata.views.earthquake;
 
-import com.senacor.geodata.model.City;
+import com.senacor.geodata.model.Earthquake;
 import com.senacor.geodata.views.events.SearchResultsChangedEvent;
 import com.senacor.geodata.views.events.SearchResultsChangedListener;
 import com.vaadin.data.util.BeanContainer;
@@ -13,29 +13,30 @@ import static com.vaadin.ui.Notification.show;
 /**
  * @author dschmitz
  */
-public class CitySearchResultsTable extends Table implements SearchResultsChangedListener {
-
-    public CitySearchResultsTable(String caption) {
+public class EarthquakeSearchResultsTable extends Table implements SearchResultsChangedListener<Earthquake> {
+    public EarthquakeSearchResultsTable(String caption) {
         super(caption);
 
         setSizeUndefined();
         setWidth(100, Unit.PERCENTAGE);
         setPageLength(5);
 
-        BeanContainer<String, City> beanContainer = new BeanContainer<>(City.class);
-        beanContainer.setBeanIdProperty("name");
+        BeanContainer<String, Earthquake> beanContainer = new BeanContainer<>(Earthquake.class);
+        beanContainer.setBeanIdProperty("eqid");
 
         setContainerDataSource(beanContainer);
-        setColumnHeader("name", "City name");
+        setColumnHeader("magnitude", "Magnitude");
         setColumnHeader("mapPosition", "Map location");
-        setColumnHeader("country", "Country");
+        setColumnHeader("dateTime", "Date and time");
+        setColumnHeader("depth", "Depth");
         // how to omit columns
 
         setSelectable(true);
     }
 
+
     @Override
-    public void onSearchResultsChanged(SearchResultsChangedEvent event) {
+    public void onSearchResultsChanged(SearchResultsChangedEvent<Earthquake> event) {
         setContainerDataSource(new ListContainer<>(event.getSearchResult()));
 
         if (event.getSearchResult().isEmpty()) {

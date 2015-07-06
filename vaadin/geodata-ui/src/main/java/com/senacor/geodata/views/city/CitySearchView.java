@@ -1,31 +1,21 @@
-package com.senacor.geodata.views;
+package com.senacor.geodata.views.city;
 
 import com.senacor.geodata.model.City;
 import com.senacor.geodata.service.GeoDataService;
-import com.senacor.geodata.views.components.CityDetails;
+import com.senacor.geodata.views.AbstractCommonView;
 import com.senacor.geodata.views.components.CitySearchForm;
-import com.senacor.geodata.views.components.CitySearchResultsTable;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
+import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.annotation.PostConstruct;
-
-import static com.senacor.geodata.views.components.ComponentUtil.buildHeaderLabel;
 
 /**
  * @author dschmitz
  */
 @SpringView(name = CitySearchView.VIEW_NAME)
-public class CitySearchView extends VerticalLayout implements View {
+public class CitySearchView extends AbstractCommonView {
     public static final String VIEW_NAME = "CitySearchView";
 
     private GeoDataService geoDataService;
@@ -37,25 +27,13 @@ public class CitySearchView extends VerticalLayout implements View {
         this.geoDataService = geoDataService;
     }
 
-    @PostConstruct
-    protected void init() {
-        setSizeUndefined();
-        setWidth(100, Unit.PERCENTAGE);
-        setSpacing(true);
-
-        addComponent(buildHeaderLabel("City Search"));
-
-        addComponent(new Label("This page demonstrates basic forms, validation and binding.", ContentMode.HTML));
-
-        buildForm();
+    @Override
+    protected String getHeaderCaption() {
+        return "City Search";
     }
 
-    private void buildForm() {
-        final VerticalLayout container = new VerticalLayout();
-        container.setHeightUndefined();
-        container.setWidth(100, Unit.PERCENTAGE);
-        container.setSpacing(true);
-
+    @Override
+    protected void addContentsTo(VerticalLayout container) {
         final CitySearchResultsTable table = new CitySearchResultsTable("");
         table.setVisible(false);
 
@@ -86,12 +64,10 @@ public class CitySearchView extends VerticalLayout implements View {
 
         container.addComponent(citySearchForm);
         container.addComponent(table);
-
-        addComponent(container);
     }
 
     @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
-
+    protected Component buildIntroduction() {
+        return new Label("This page demonstrates basic forms, validation and binding.", ContentMode.HTML);
     }
 }
