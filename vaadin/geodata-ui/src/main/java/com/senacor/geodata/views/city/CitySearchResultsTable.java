@@ -29,6 +29,7 @@ public class CitySearchResultsTable extends Table implements SearchResultsChange
         setColumnHeader("name", "City name");
         setColumnHeader("mapPosition", "Map location");
         setColumnHeader("country", "Country");
+        setNullSelectionAllowed(false);
         // how to omit columns
 
         setVisibleColumns("name", "mapPosition", "country");

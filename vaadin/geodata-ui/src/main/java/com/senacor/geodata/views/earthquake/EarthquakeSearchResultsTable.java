@@ -29,9 +29,11 @@ public class EarthquakeSearchResultsTable extends Table implements SearchResults
         setColumnHeader("mapPosition", "Map location");
         setColumnHeader("dateTime", "Date and time");
         setColumnHeader("depth", "Depth");
-        // how to omit columns
+        // how to omit columns??
+        setVisibleColumns("dateTime", "mapPosition", "magnitude", "depth");
 
         setSelectable(true);
+        setNullSelectionAllowed(false);
     }
 
 
