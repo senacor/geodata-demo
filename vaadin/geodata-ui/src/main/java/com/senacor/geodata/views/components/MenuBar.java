@@ -17,36 +17,45 @@ import com.vaadin.ui.themes.ValoTheme;
  *
  * @author dschmitz
  */
-public class MenuBar extends CustomComponent {
+public class MenuBar extends CssLayout {
     public MenuBar() {
         setPrimaryStyleName(ValoTheme.MENU_ROOT);
         setSizeUndefined();
         setHeight(100, Unit.PERCENTAGE);
-        setCompositionRoot(buildMenu());
+
+        addComponent(buildMenu());
     }
 
     private Component buildMenu() {
         CssLayout menuContent = new CssLayout();
-        menuContent.setStyleName("geodata-menu");
-        menuContent.addStyleName(ValoTheme.MENU_PART);
-        menuContent.setWidth(null);
-        menuContent.setHeight(100, Unit.PERCENTAGE);
 
-        // TODO Styling....add MENU_PART and MENU_ITEM Valo styles
+        menuContent.addStyleName(ValoTheme.MENU_PART);
         menuContent.addComponent(addMenuTitle());
-        menuContent.addComponent(addMenuItems());
+        Component menuItems = addMenuItems();
+
+        final Button showMenu = new Button("Menu", event -> {
+            if (menuContent.getStyleName().contains("valo-menu-visible")) {
+                menuContent.removeStyleName("valo-menu-visible");
+            } else {
+                menuContent.addStyleName("valo-menu-visible");
+            }
+        });
+        showMenu.addStyleName(ValoTheme.BUTTON_PRIMARY);
+        showMenu.addStyleName(ValoTheme.BUTTON_SMALL);
+        showMenu.addStyleName("valo-menu-toggle");
+        showMenu.setIcon(FontAwesome.LIST);
+        menuContent.addComponent(showMenu);
+        menuContent.addComponent(menuItems);
 
         return menuContent;
     }
 
-
     private Component buildHeader() {
         HorizontalLayout layout = new HorizontalLayout();
-        layout.addStyleName("geodata-header-bar");
         layout.setSizeUndefined();
         layout.setWidth(100, Unit.PERCENTAGE);
 
-        Label label = new Label();// "User: R. Hotzenplotz");
+        Label label = new Label();
         label.setCaption("User: R. Hotzenplotz");
         label.setIcon(FontAwesome.USER);
         label.addStyleName(ValoTheme.LABEL_TINY);
@@ -79,9 +88,8 @@ public class MenuBar extends CustomComponent {
     }
 
     private Component addMenuItems() {
-        // das hier muss noch dynamisch gemacht werden
-        final VerticalLayout menuItems = new VerticalLayout();
-        menuItems.setSpacing(true);
+        final CssLayout menuItems = new CssLayout();
+        menuItems.setPrimaryStyleName("valo-menuitems");
 
         menuItems.addComponent(createMenuItem("City search", FontAwesome.SEARCH, CitySearchView.VIEW_NAME));
 
@@ -107,12 +115,12 @@ public class MenuBar extends CustomComponent {
 
     private Component addMenuTitle() {
         HorizontalLayout layout = new HorizontalLayout();
-        layout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        layout.setHeightUndefined();
+        layout.setWidth(100, Unit.PERCENTAGE);
 
-        Label label = new Label("<strong>geoData</strong> - Menu", ContentMode.HTML);
-        label.addStyleName("geodata-menu-title");
+        Label label = new Label("<strong>geoData</strong>", ContentMode.HTML);
+        label.addStyleName(ValoTheme.MENU_TITLE);
         layout.addComponent(label);
         return layout;
     }
-
 }

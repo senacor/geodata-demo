@@ -14,8 +14,6 @@ import com.vaadin.ui.VerticalLayout;
 import java.util.List;
 import java.util.WeakHashMap;
 
-import static com.senacor.geodata.views.components.ComponentUtil.buildFormHeader;
-import static com.senacor.geodata.views.components.ComponentUtil.buildPrimaryButton;
 import static com.vaadin.ui.Alignment.MIDDLE_RIGHT;
 import static com.vaadin.ui.Notification.Type.TRAY_NOTIFICATION;
 import static com.vaadin.ui.Notification.Type.WARNING_MESSAGE;
@@ -40,13 +38,13 @@ public class CitySearchForm extends VerticalLayout {
         MapPositionBox mapPositionBox = new MapPositionBox(44.1d, -9.9d, -22.4d, 55.2d);
         MapPositionBoxForm form = new MapPositionBoxForm();
 
-        addComponent(buildFormHeader("Provide map position box parameters"));
+        addComponent(new FormHeaderLabel("Provide map position box parameters"));
 
         FieldGroup binder = new FieldGroup();
         binder.setItemDataSource(new BeanItem<>(mapPositionBox));
         binder.bindMemberFields(form);
 
-        Button searchCity = buildPrimaryButton("Search cities");
+        Button searchCity = new BasicPrimaryButton("Search cities");
         searchCity.setDisableOnClick(true);
         searchCity.addClickListener(event -> {
             try {

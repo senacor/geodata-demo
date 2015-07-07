@@ -4,6 +4,7 @@ import com.senacor.geodata.views.components.MenuBar;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Responsive;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.*;
@@ -32,6 +33,7 @@ public class GeoDataPortalView extends HorizontalLayout implements View {
     }
 
     private void initGui() {
+        Responsive.makeResponsive(this);
         setSizeFull();
         addComponent(buildMenubar());
 

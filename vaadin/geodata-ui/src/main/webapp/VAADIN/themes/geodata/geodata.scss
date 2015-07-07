@@ -13,6 +13,7 @@ $v-font-size: 14px;
 //$v-gradient: v-linear 20%;
 //$v-focus-style: 0 0 0 1px v-tint;
 
+$v-bevel: false;
 
 
 @import "../valo/valo";
@@ -37,11 +38,7 @@ $valo-menu-background-color: #414B56;
 @mixin geodata {
   @include valo;
 
-
-
-
   .geodata-menu {
-    padding-left: 0.5em;
     background-color: $valo-menu-background-color;
     color: white;
     font-size: 0.9em;

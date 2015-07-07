@@ -1,13 +1,12 @@
 package com.senacor.geodata.views;
 
+import com.senacor.geodata.views.components.HeaderLabel;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
 
 import javax.annotation.PostConstruct;
-
-import static com.senacor.geodata.views.components.ComponentUtil.buildHeaderLabel;
 
 /**
  * @author dschmitz
@@ -24,7 +23,7 @@ public abstract class AbstractCommonView extends VerticalLayout implements View 
         setWidth(100, Unit.PERCENTAGE);
         setSpacing(true);
 
-        addComponent(buildHeaderLabel(getHeaderCaption()));
+        addComponent(new HeaderLabel(getHeaderCaption()));
 
         addComponent(buildIntroduction());
 

@@ -1,6 +1,8 @@
 package com.senacor.geodata.views.city;
 
 import com.senacor.geodata.model.City;
+import com.senacor.geodata.views.components.BasicPrimaryButton;
+import com.senacor.geodata.views.components.FormHeaderLabel;
 import com.vaadin.data.Property;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
@@ -8,9 +10,6 @@ import com.vaadin.data.util.BeanItem;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-
-import static com.senacor.geodata.views.components.ComponentUtil.buildFormHeader;
-import static com.senacor.geodata.views.components.ComponentUtil.buildPrimaryButton;
 
 /**
  * @author dschmitz
@@ -28,7 +27,7 @@ public class CityDetails extends VerticalLayout implements Property.ValueChangeL
     public CityDetails(City value) {
         setSpacing(true);
         this.city = value;
-        addComponent(buildFormHeader("City details"));
+        addComponent(new FormHeaderLabel("City details"));
 
         FormLayout form = new FormLayout();
         form.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
@@ -47,7 +46,7 @@ public class CityDetails extends VerticalLayout implements Property.ValueChangeL
         buttonBar.setWidth(100, Unit.PERCENTAGE);
         addComponent(buttonBar);
 
-        Button button = buildPrimaryButton("Show Wikipedia");
+        Button button = new BasicPrimaryButton("Show Wikipedia");
         button.addClickListener(event -> {
             Window window = new Window();
             window.center();
@@ -64,7 +63,7 @@ public class CityDetails extends VerticalLayout implements Property.ValueChangeL
 
         buttonBar.addComponent(button);
 
-        Button mapsbutton = buildPrimaryButton("Show in Maps");
+        Button mapsbutton = new BasicPrimaryButton("Show in Maps");
         mapsbutton.addClickListener(event -> {
             Window window = new Window();
             window.center();
