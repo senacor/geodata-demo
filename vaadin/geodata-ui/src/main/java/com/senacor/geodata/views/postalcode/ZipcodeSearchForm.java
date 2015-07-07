@@ -2,6 +2,7 @@ package com.senacor.geodata.views.postalcode;
 
 import static com.vaadin.ui.Alignment.MIDDLE_RIGHT;
 import static com.vaadin.ui.Notification.Type.TRAY_NOTIFICATION;
+import static com.vaadin.ui.Notification.Type.WARNING_MESSAGE;
 import static com.vaadin.ui.Notification.show;
 import static java.lang.Boolean.TRUE;
 
@@ -13,8 +14,11 @@ import com.senacor.geodata.model.ZipcodeSearchParameter;
 import com.senacor.geodata.service.GeoDataService;
 import com.senacor.geodata.views.components.BasicPrimaryButton;
 import com.senacor.geodata.views.components.FormHeaderLabel;
+import com.senacor.geodata.views.components.ZipcodeSearchParameterForm;
 import com.senacor.geodata.views.events.SearchResultsChangedEvent;
 import com.senacor.geodata.views.events.SearchResultsChangedListener;
+import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -36,18 +40,31 @@ public class ZipcodeSearchForm extends VerticalLayout {
         addComponent(new FormHeaderLabel("Provide zipcode search parameters"));
 
         ZipcodeSearchParameter searchParameter = new ZipcodeSearchParameter("45659", "DE", 10);
+        ZipcodeSearchParameterForm form = new ZipcodeSearchParameterForm();
+
+        FieldGroup binder = new FieldGroup();
+        binder.setItemDataSource(new BeanItem<>(searchParameter));
+        binder.bindMemberFields(form);
 
         Button searchZipcodes = new BasicPrimaryButton("Search zipcodes");
         searchZipcodes.setDisableOnClick(true);
         searchZipcodes.addClickListener(event -> {
-            UI.getCurrent().access(() -> show("Searching...", "Looking for zipcodes " + searchParameter, TRAY_NOTIFICATION));
+            try {
+                binder.commit();
 
-            List<Zipcode> zipcodes = geoDataService.findZipcodes(searchParameter);
-            fireSearchResultsChangedEvent(zipcodes);
+                UI.getCurrent().access(() -> show("Searching...", "Looking for zipcodes " + searchParameter, TRAY_NOTIFICATION));
+
+                List<Zipcode> zipcodes = geoDataService.findZipcodes(searchParameter);
+                fireSearchResultsChangedEvent(zipcodes);
+            } catch (FieldGroup.CommitException e) {
+                show("Searching...", "Cannot look for " + searchParameter + "! " + e.getMessage(), WARNING_MESSAGE);
+            }
+
             searchZipcodes.setEnabled(true);
         });
 
         setSizeUndefined();
+        addComponent(form);
         addComponent(searchZipcodes);
         setComponentAlignment(searchZipcodes, MIDDLE_RIGHT);
     }

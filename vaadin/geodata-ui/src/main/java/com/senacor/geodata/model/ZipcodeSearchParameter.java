@@ -4,10 +4,10 @@ package com.senacor.geodata.model;
  * Created by mblume on 07.07.15.
  */
 public class ZipcodeSearchParameter {
-    private final String zipcode;
-    private final String countryCode;
+    private String zipcode;
+    private String countryCode;
 
-    private final int diameter;
+    private int diameter;
 
     public ZipcodeSearchParameter(String zipcode, String countryCode, int diameter) {
         this.zipcode = zipcode;
@@ -25,6 +25,18 @@ public class ZipcodeSearchParameter {
 
     public int getDiameter() {
         return diameter;
+    }
+
+    public void setDiameter(int diameter) {
+        this.diameter = diameter;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 
     @Override

@@ -15,7 +15,6 @@ import com.senacor.geodata.model.ZipcodeSearchParameter;
 import com.senacor.geodata.service.GeoDataService;
 import com.senacor.geodata.service.IntegrationService;
 import com.senacor.geodata.service.mock.MockedGeoDataService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -27,12 +26,12 @@ public class GeoNamesGeoDataService implements GeoDataService {
     public static final String RETRIEVE_RECENT_EARTHQUAKES =
         "/earthquakesJSON?north={north}&south={south}&east={east}&west={west}&lang=de&username={geonamesuser}";
     public static final String RETRIEVE_CITIES = "/citiesJSON?north={north}&south={south}&east={east}&west={west}&lang=de&username={geonamesuser}";
+    public static final String RETRIEVE_ZIPCODES =
+        "/findNearbyPostalCodesJSON?postalcode={zipcode}&country={countryCode}&radius={diameter}&username={geonamesuser}";
 
-    @Value("${geonames.url}")
-    private String geonamesUrl;
+    private String geonamesUrl = "http://api.geonames.org";
 
-    @Value("${geonames.username}")
-    private String username;
+    private String username = "myGeo";
 
     private MockedGeoDataService mockedGeoDataService = new MockedGeoDataService();
 
@@ -61,8 +60,20 @@ public class GeoNamesGeoDataService implements GeoDataService {
         return geoEarthquakes.getEarthquakes().stream().map(Earthquake::fromGeoEarthquake).collect(toList());
     }
 
+    @HystrixCommand(
+        fallbackMethod = "findZipcodesWithMock",
+        commandProperties = {@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "500")})
     @Override
     public List<Zipcode> findZipcodes(@NotNull ZipcodeSearchParameter zipcodeSearchParameter) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        GeoZipcodes geoZipcodes = restTemplate.getForObject(geonamesUrl + RETRIEVE_ZIPCODES, GeoZipcodes.class, zipcodeSearchParameter.getZipcode(),
+            zipcodeSearchParameter.getCountryCode(), zipcodeSearchParameter.getDiameter(), username);
+
+        return geoZipcodes.getPostalCodes().stream().map(Zipcode::fromGeoZipcode).collect(toList());
+    }
+
+    public List<Zipcode> findZipcodesWithMock(@NotNull ZipcodeSearchParameter zipcodeSearchParameter) {
         return this.mockedGeoDataService.findZipcodes(zipcodeSearchParameter);
     }
 
