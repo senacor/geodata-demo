@@ -8,7 +8,7 @@
  * Controller of the angularjsApp
  */
 angular.module('angularjsApp')
-    .controller('PostalcodeLookupCtrl', function ($scope, $http, lookupPostalcodesFactory) {
+    .controller('PostalcodeLookupCtrl', function ($scope, lookupPostalcodesFactory) {
         // TODO: get countries from service as well
         $scope.countries = [
             {code: 'DE', name: 'Germany'},
