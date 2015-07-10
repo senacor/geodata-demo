@@ -32,10 +32,10 @@ describe('Routes test', function () {
             toEqual('views/postalcodeLookup.html');
     });
 
-    it('should route view2', function () {
-        expect($route.routes['/view2'].controller).toBe('View2Ctrl');
-        expect($route.routes['/view2'].templateUrl).
-            toEqual('views/view2.html');
+    it('should route to city Search', function () {
+        expect($route.routes['/citySearch'].controller).toBe('CitySearchCtrl');
+        expect($route.routes['/citySearch'].templateUrl).
+            toEqual('views/citySearch.html');
     });
 
     it('should route view3', function () {

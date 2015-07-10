@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-var angularjsApp = angular.module('angularjsApp', ['oauth', 'ngRoute', 'tc.chartjs'])
+var angularjsApp = angular.module('angularjsApp', ['oauth', 'ngRoute', 'tc.chartjs', 'citySearch'])
     .config(function ($routeProvider) {
         $routeProvider.
             when('/welcome', {
@@ -27,9 +27,9 @@ var angularjsApp = angular.module('angularjsApp', ['oauth', 'ngRoute', 'tc.chart
                 templateUrl: 'views/postalcodeLookup.html',
                 controller: 'PostalcodeLookupCtrl'
             }).
-            when('/view2', {
-                templateUrl: 'views/view2.html',
-                controller: 'View2Ctrl'
+            when('/citySearch', {
+                templateUrl: 'views/citySearch.html',
+                controller: 'CitySearchCtrl'
             }).
             when('/view3', {
                 templateUrl: 'views/view3.html',
@@ -43,6 +43,7 @@ var angularjsApp = angular.module('angularjsApp', ['oauth', 'ngRoute', 'tc.chart
                 redirectTo: '/welcome'
             });
     });
+
 
 angularjsApp.config(function ($routeProvider) {
     $routeProvider

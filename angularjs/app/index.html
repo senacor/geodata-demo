@@ -13,7 +13,7 @@
   <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
   <script src="scripts/app.js"></script>
   <script src="scripts/controllers/postalcodeLookup.js"></script>
-  <script src="scripts/controllers/view2.js"></script>
+  <script src="scripts/controllers/citySearch.js"></script>
   <script src="scripts/controllers/view3.js"></script>
   <script src="scripts/controllers/view4.js"></script>
   <link rel="stylesheet" href="styles/main.css">
@@ -65,8 +65,7 @@
     </div>
   </div>
 
-
-  <div ng-show="!loggedIn">
+  <div ng-show="false">
     <div class="row">
       <div class="jumbotron">
         <h1>Welcome to GeoData</h1>
@@ -74,7 +73,7 @@
     </div>
   </div>
 
-  <div ng-show="loggedIn">
+  <div ng-show="true">
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
         <li>
@@ -87,7 +86,7 @@
           <a href="#postalcodeLookup">Postalcodes</a>
         </li>
         <li>
-          <a href="#view2">View2</a>
+          <a href="#citySearch">City Search</a>
         </li>
         <li>
           <a href="#view3">View3</a>
@@ -134,7 +133,7 @@
 <script src="scripts/controllers/charts.js"></script>
 <script src="scripts/controllers/playground.js"></script>
 <script src="scripts/controllers/postalcodeLookup.js"></script>
-<script src="scripts/controllers/view2.js"></script>
+<script src="scripts/controllers/citySearch.js"></script>
 <script src="scripts/controllers/view3.js"></script>
 <script src="scripts/controllers/view4.js"></script>
 <!-- endbuild -->
