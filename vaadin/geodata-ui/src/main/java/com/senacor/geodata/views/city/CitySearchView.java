@@ -1,14 +1,14 @@
 package com.senacor.geodata.views.city;
 
-import com.senacor.geodata.model.City;
 import com.senacor.geodata.service.GeoDataService;
 import com.senacor.geodata.views.AbstractCommonView;
 import com.senacor.geodata.views.components.CitySearchForm;
-import com.vaadin.data.fieldgroup.FieldGroup;
-import com.vaadin.data.util.BeanItem;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -19,8 +19,6 @@ public class CitySearchView extends AbstractCommonView {
     public static final String VIEW_NAME = "CitySearchView";
 
     private GeoDataService geoDataService;
-    private Window detailsWindow;
-    private CityDetails details;
 
     @Autowired
     public CitySearchView(GeoDataService geoDataService) {
@@ -34,35 +32,22 @@ public class CitySearchView extends AbstractCommonView {
 
     @Override
     protected void addContentsTo(VerticalLayout container) {
+        final HorizontalLayout topRow = new HorizontalLayout();
+        topRow.setSizeUndefined();
+        topRow.setWidth(100, Unit.PERCENTAGE);
+        topRow.setSpacing(true);
+
         final CitySearchResultsTable table = new CitySearchResultsTable("");
         table.setVisible(false);
-
-        CitySearchForm citySearchForm = new CitySearchForm(geoDataService);
+        final CitySearchForm citySearchForm = new CitySearchForm(geoDataService);
         citySearchForm.addSearchResultsChangedListener(table);
+        final CityDetails cityDetails = new CityDetails(null);
+        cityDetails.setVisible(false);
+        table.addValueChangeListener(cityDetails);
 
-        table.addValueChangeListener(event -> {
-            City value = (City) event.getProperty().getValue();
-            if (null != value) {
-                if (null == detailsWindow) {
-                    detailsWindow = new Window();
-                    detailsWindow.setDraggable(true);
-                    detailsWindow.setResizable(false);
-                    detailsWindow.addCloseListener(closeEvent -> detailsWindow = null);
-                    detailsWindow.setSizeUndefined();
-                    detailsWindow.center();
-
-                    details = new CityDetails(value);
-                    detailsWindow.setContent(details);
-
-                    UI.getCurrent().addWindow(detailsWindow);
-                }
-                FieldGroup binder = new FieldGroup();
-                binder.setItemDataSource(new BeanItem<>(value));
-                binder.bindMemberFields(details);
-            }
-        });
-
-        container.addComponent(citySearchForm);
+        topRow.addComponents(citySearchForm, cityDetails);
+        topRow.setExpandRatio(cityDetails, 1f);
+        container.addComponent(topRow);
         container.addComponent(table);
     }
 

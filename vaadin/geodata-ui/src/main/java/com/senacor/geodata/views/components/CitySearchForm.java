@@ -7,9 +7,12 @@ import com.senacor.geodata.views.events.SearchResultsChangedEvent;
 import com.senacor.geodata.views.events.SearchResultsChangedListener;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 import java.util.List;
 import java.util.WeakHashMap;
@@ -25,20 +28,25 @@ import static java.lang.Boolean.TRUE;
  *
  * @author dschmitz
  */
-public class CitySearchForm extends VerticalLayout {
+public class CitySearchForm extends Panel {
     private GeoDataService geoDataService;
     private WeakHashMap<SearchResultsChangedListener, Boolean> listeners = new WeakHashMap<>();
 
     public CitySearchForm(GeoDataService geoDataService) {
+        super("Provide map position box parameters");
+        setIcon(FontAwesome.SEARCH);
+        setCaptionAsHtml(true);
+        addStyleName(ValoTheme.PANEL_WELL);
         this.geoDataService = geoDataService;
         init();
     }
 
     public void init() {
+        VerticalLayout layout = new VerticalLayout();
+        layout.setMargin(true);
+        layout.setSpacing(true);
         MapPositionBox mapPositionBox = new MapPositionBox(44.1d, -9.9d, -22.4d, 55.2d);
         MapPositionBoxForm form = new MapPositionBoxForm();
-
-        addComponent(new FormHeaderLabel("Provide map position box parameters"));
 
         FieldGroup binder = new FieldGroup();
         binder.setItemDataSource(new BeanItem<>(mapPositionBox));
@@ -51,7 +59,7 @@ public class CitySearchForm extends VerticalLayout {
                 binder.commit();
 
                 UI.getCurrent().access(() ->
-                    show("Searching...", "Looking for coordinates " + mapPositionBox, TRAY_NOTIFICATION)
+                                show("Searching...", "Looking for coordinates " + mapPositionBox, TRAY_NOTIFICATION)
                 );
 
                 // TODO: reactive extensions and Vaadin?
@@ -65,9 +73,10 @@ public class CitySearchForm extends VerticalLayout {
         });
 
         setSizeUndefined();
-        addComponent(form);
-        addComponent(searchCity);
-        setComponentAlignment(searchCity, MIDDLE_RIGHT);
+        layout.addComponent(form);
+        layout.addComponent(searchCity);
+        layout.setComponentAlignment(searchCity, MIDDLE_RIGHT);
+        setContent(layout);
     }
 
     private void fireSearchResultsChangedEvent(List<City> searchResult) {
