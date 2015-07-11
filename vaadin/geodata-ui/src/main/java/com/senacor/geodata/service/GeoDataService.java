@@ -1,11 +1,13 @@
 package com.senacor.geodata.service;
 
+import java.util.List;
+import javax.validation.constraints.NotNull;
+
 import com.senacor.geodata.model.City;
 import com.senacor.geodata.model.Earthquake;
 import com.senacor.geodata.model.MapPositionBox;
-
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import com.senacor.geodata.model.Zipcode;
+import com.senacor.geodata.model.ZipcodeSearchParameter;
 
 /**
  * Service for gathering map data.
@@ -24,4 +26,7 @@ public interface GeoDataService {
 
     @NotNull
     List<Earthquake> findRecentEarthquakesWithin(@NotNull MapPositionBox mapPositionBox);
+
+    @NotNull
+    List<Zipcode> findZipcodes(@NotNull ZipcodeSearchParameter zipcodeSearchParameter);
 }
