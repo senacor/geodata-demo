@@ -1,18 +1,19 @@
-package com.senacor.geodata.views.components;
+package com.senacor.geodata.views.city;
 
 import com.senacor.geodata.model.City;
 import com.senacor.geodata.model.MapPositionBox;
 import com.senacor.geodata.service.GeoDataService;
+import com.senacor.geodata.views.components.AbstractCommonForm;
+import com.senacor.geodata.views.components.BasicPrimaryButton;
+import com.senacor.geodata.views.components.MapPositionBoxForm;
 import com.senacor.geodata.views.events.SearchResultsChangedEvent;
 import com.senacor.geodata.views.events.SearchResultsChangedListener;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.themes.ValoTheme;
 
 import java.util.List;
 import java.util.WeakHashMap;
@@ -28,23 +29,17 @@ import static java.lang.Boolean.TRUE;
  *
  * @author dschmitz
  */
-public class CitySearchForm extends Panel {
+public class CitySearchForm extends AbstractCommonForm {
     private GeoDataService geoDataService;
     private WeakHashMap<SearchResultsChangedListener, Boolean> listeners = new WeakHashMap<>();
 
     public CitySearchForm(GeoDataService geoDataService) {
-        super("Provide map position box parameters");
-        setIcon(FontAwesome.SEARCH);
-        setCaptionAsHtml(true);
-        addStyleName(ValoTheme.PANEL_WELL);
+        super("Provide map position box parameters", FontAwesome.SEARCH);
         this.geoDataService = geoDataService;
-        init();
     }
 
-    public void init() {
-        VerticalLayout layout = new VerticalLayout();
-        layout.setMargin(true);
-        layout.setSpacing(true);
+    @Override
+    protected void init(VerticalLayout layout) {
         MapPositionBox mapPositionBox = new MapPositionBox(44.1d, -9.9d, -22.4d, 55.2d);
         MapPositionBoxForm form = new MapPositionBoxForm();
 
@@ -58,9 +53,7 @@ public class CitySearchForm extends Panel {
             try {
                 binder.commit();
 
-                UI.getCurrent().access(() ->
-                                show("Searching...", "Looking for coordinates " + mapPositionBox, TRAY_NOTIFICATION)
-                );
+                UI.getCurrent().access(() -> show("Searching...", "Looking for coordinates " + mapPositionBox, TRAY_NOTIFICATION));
 
                 // TODO: reactive extensions and Vaadin?
                 List<City> cities = this.geoDataService.findCitiesBy(mapPositionBox);
@@ -72,11 +65,10 @@ public class CitySearchForm extends Panel {
             searchCity.setEnabled(true);
         });
 
-        setSizeUndefined();
+//        layout.setSizeUndefined();
         layout.addComponent(form);
         layout.addComponent(searchCity);
         layout.setComponentAlignment(searchCity, MIDDLE_RIGHT);
-        setContent(layout);
     }
 
     private void fireSearchResultsChangedEvent(List<City> searchResult) {
