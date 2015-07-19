@@ -1,5 +1,14 @@
 package com.senacor.geodata.views.city;
 
+import static com.vaadin.ui.Alignment.MIDDLE_RIGHT;
+import static com.vaadin.ui.Notification.Type.TRAY_NOTIFICATION;
+import static com.vaadin.ui.Notification.Type.WARNING_MESSAGE;
+import static com.vaadin.ui.Notification.show;
+import static java.lang.Boolean.TRUE;
+
+import java.util.List;
+import java.util.WeakHashMap;
+
 import com.senacor.geodata.model.City;
 import com.senacor.geodata.model.MapPositionBox;
 import com.senacor.geodata.service.GeoDataService;
@@ -10,19 +19,9 @@ import com.senacor.geodata.views.events.SearchResultsChangedEvent;
 import com.senacor.geodata.views.events.SearchResultsChangedListener;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-
-import java.util.List;
-import java.util.WeakHashMap;
-
-import static com.vaadin.ui.Alignment.MIDDLE_RIGHT;
-import static com.vaadin.ui.Notification.Type.TRAY_NOTIFICATION;
-import static com.vaadin.ui.Notification.Type.WARNING_MESSAGE;
-import static com.vaadin.ui.Notification.show;
-import static java.lang.Boolean.TRUE;
 
 /**
  * Search form for cities.
@@ -34,11 +33,10 @@ public class CitySearchForm extends AbstractCommonForm {
     private WeakHashMap<SearchResultsChangedListener, Boolean> listeners = new WeakHashMap<>();
 
     public CitySearchForm(GeoDataService geoDataService) {
-        super("Provide map position box parameters", FontAwesome.SEARCH);
         this.geoDataService = geoDataService;
+        init(new VerticalLayout());
     }
 
-    @Override
     protected void init(VerticalLayout layout) {
         MapPositionBox mapPositionBox = new MapPositionBox(44.1d, -9.9d, -22.4d, 55.2d);
         MapPositionBoxForm form = new MapPositionBoxForm();
@@ -59,13 +57,12 @@ public class CitySearchForm extends AbstractCommonForm {
                 List<City> cities = this.geoDataService.findCitiesBy(mapPositionBox);
                 fireSearchResultsChangedEvent(cities);
             } catch (FieldGroup.CommitException e) {
-                show("Searching...", "Cannot look for " + mapPositionBox + "! " + e.getMessage(),
-                        WARNING_MESSAGE);
+                show("Searching...", "Cannot look for " + mapPositionBox + "! " + e.getMessage(), WARNING_MESSAGE);
             }
             searchCity.setEnabled(true);
         });
 
-//        layout.setSizeUndefined();
+        //        layout.setSizeUndefined();
         layout.addComponent(form);
         layout.addComponent(searchCity);
         layout.setComponentAlignment(searchCity, MIDDLE_RIGHT);

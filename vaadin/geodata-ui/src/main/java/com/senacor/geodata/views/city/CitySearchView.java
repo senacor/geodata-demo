@@ -2,7 +2,6 @@ package com.senacor.geodata.views.city;
 
 import com.senacor.geodata.service.GeoDataService;
 import com.senacor.geodata.views.AbstractCommonView;
-import com.senacor.geodata.views.components.CitySearchForm;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Component;
