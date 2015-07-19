@@ -19,8 +19,16 @@ public class ZipcodeSearchParameter {
         return zipcode;
     }
 
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
     public String getCountryCode() {
         return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
     public int getDiameter() {
@@ -29,14 +37,6 @@ public class ZipcodeSearchParameter {
 
     public void setDiameter(int diameter) {
         this.diameter = diameter;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
     }
 
     @Override

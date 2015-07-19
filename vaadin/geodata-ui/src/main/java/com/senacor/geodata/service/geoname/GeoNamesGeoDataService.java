@@ -43,7 +43,7 @@ public class GeoNamesGeoDataService implements GeoDataService {
             mapPositionBox.getSouth(), mapPositionBox.getEast(), mapPositionBox.getWest(), username);
 
         // map to "our" structure
-        return geoNames.getGeonames().stream().map(City::fromGeoName).collect(toList());
+        return geoNames.getGeonames().stream().map(GeoName::toCity).collect(toList());
     }
 
     @HystrixCommand(
@@ -57,7 +57,7 @@ public class GeoNamesGeoDataService implements GeoDataService {
         GeoEarthquakes geoEarthquakes = restTemplate.getForObject(geonamesUrl + RETRIEVE_RECENT_EARTHQUAKES, GeoEarthquakes.class,
             mapPositionBox.getNorth(), mapPositionBox.getSouth(), mapPositionBox.getEast(), mapPositionBox.getWest(), username);
 
-        return geoEarthquakes.getEarthquakes().stream().map(Earthquake::fromGeoEarthquake).collect(toList());
+        return geoEarthquakes.getEarthquakes().stream().map(GeoEarthquake::toEarthquake).collect(toList());
     }
 
     @HystrixCommand(
@@ -70,7 +70,7 @@ public class GeoNamesGeoDataService implements GeoDataService {
         GeoZipcodes geoZipcodes = restTemplate.getForObject(geonamesUrl + RETRIEVE_ZIPCODES, GeoZipcodes.class, zipcodeSearchParameter.getZipcode(),
             zipcodeSearchParameter.getCountryCode(), zipcodeSearchParameter.getDiameter(), username);
 
-        return geoZipcodes.getPostalCodes().stream().map(Zipcode::fromGeoZipcode).collect(toList());
+        return geoZipcodes.getPostalCodes().stream().map(GeoZipcode::toZipcode).collect(toList());
     }
 
     public List<Zipcode> findZipcodesWithMock(@NotNull ZipcodeSearchParameter zipcodeSearchParameter) {

@@ -1,6 +1,8 @@
 package com.senacor.geodata.service.geoname;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.senacor.geodata.model.City;
+import com.senacor.geodata.model.MapPosition;
 
 /**
  * @author dschmitz
@@ -14,6 +16,10 @@ public class GeoName {
     private String geonameId;
     private String wikipedia;
 
+    public City toCity() {
+        return new City(getGeonameId(), getName(), getCountrycode(), new MapPosition(getLat(), getLng()), getWikipedia());
+    }
+
     public String getGeonameId() {
         return geonameId;
     }
@@ -25,10 +31,6 @@ public class GeoName {
     public String getWikipedia() {
         return wikipedia;
     }
-
-    public void setWikipedia(String wikipedia) {
-        this.wikipedia = wikipedia;
-    }
     //{"fcodeName":"capital of a political entity"
     // ,"toponymName":"Mexico City",
     // "countrycode":"MX","fcl":"P","fclName":"city, village,...",
@@ -37,6 +39,10 @@ public class GeoName {
     // "lng":-99.12766456604,"fcode":"PPLC",
     // "geonameId":3530597,
     // "lat":19.428472427036,"population":12294193}
+
+    public void setWikipedia(String wikipedia) {
+        this.wikipedia = wikipedia;
+    }
 
     public String getName() {
         return name;
@@ -73,10 +79,10 @@ public class GeoName {
     @Override
     public String toString() {
         return "GeoName{" +
-                "name='" + name + '\'' +
-                ", lat='" + lat + '\'' +
-                ", lng='" + lng + '\'' +
-                ", countryCode='" + countrycode + '\'' +
-                '}';
+            "name='" + name + '\'' +
+            ", lat='" + lat + '\'' +
+            ", lng='" + lng + '\'' +
+            ", countryCode='" + countrycode + '\'' +
+            '}';
     }
 }

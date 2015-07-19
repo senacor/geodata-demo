@@ -1,7 +1,5 @@
 package com.senacor.geodata.model;
 
-import com.senacor.geodata.service.geoname.GeoName;
-
 import java.io.Serializable;
 
 /**
@@ -28,11 +26,6 @@ public class City implements Serializable {
         this("", "", "", new MapPosition(0d, 0d), "");
     }
 
-    public static City fromGeoName(GeoName geoName) {
-        return new City(geoName.getGeonameId(), geoName.getName(),
-                geoName.getCountrycode(), new MapPosition(geoName.getLat(), geoName.getLng()), geoName.getWikipedia());
-    }
-
     public MapPosition getMapPosition() {
         return mapPosition;
     }
@@ -55,13 +48,21 @@ public class City implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         City city = (City) o;
 
-        if (name != null ? !name.equals(city.name) : city.name != null) return false;
-        if (mapPosition != null ? !mapPosition.equals(city.mapPosition) : city.mapPosition != null) return false;
+        if (name != null ? !name.equals(city.name) : city.name != null) {
+            return false;
+        }
+        if (mapPosition != null ? !mapPosition.equals(city.mapPosition) : city.mapPosition != null) {
+            return false;
+        }
         return !(country != null ? !country.equals(city.country) : city.country != null);
     }
 
@@ -76,9 +77,9 @@ public class City implements Serializable {
     @Override
     public String toString() {
         return "City{" +
-                "mapPosition=" + mapPosition +
-                ", name='" + name + '\'' +
-                ", country='" + country + '\'' +
-                '}';
+            "mapPosition=" + mapPosition +
+            ", name='" + name + '\'' +
+            ", country='" + country + '\'' +
+            '}';
     }
 }

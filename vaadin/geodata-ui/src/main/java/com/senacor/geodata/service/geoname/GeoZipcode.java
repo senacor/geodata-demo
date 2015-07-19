@@ -1,5 +1,7 @@
 package com.senacor.geodata.service.geoname;
 
+import com.senacor.geodata.model.Zipcode;
+
 /**
  * Created by mblume on 08.07.15.
  */
@@ -17,6 +19,10 @@ public class GeoZipcode {
     private String placeName;
     private String lat;
     private String adminName1;
+
+    public Zipcode toZipcode() {
+        return new Zipcode(getPostalCode(), getPlaceName());
+    }
 
     public String getAdminCode3() {
         return adminCode3;

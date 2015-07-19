@@ -1,9 +1,6 @@
 package com.senacor.geodata.model;
 
-import com.senacor.geodata.service.geoname.GeoEarthquake;
-
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @author dschmitz
@@ -46,17 +43,12 @@ public class Earthquake {
     @Override
     public String toString() {
         return "Earthquake{" +
-                "eqid='" + eqid + '\'' +
-                ", magnitude=" + magnitude +
-                ", mapPosition=" + mapPosition +
-                ", dateTime=" + dateTime +
-                ", depth=" + depth +
-                '}';
+            "eqid='" + eqid + '\'' +
+            ", magnitude=" + magnitude +
+            ", mapPosition=" + mapPosition +
+            ", dateTime=" + dateTime +
+            ", depth=" + depth +
+            '}';
     }
 
-    public static Earthquake fromGeoEarthquake(GeoEarthquake geoEarthquake) {
-        return new Earthquake(geoEarthquake.getEqid(), geoEarthquake.getMagnitude(),
-                new MapPosition(geoEarthquake.getLat(), geoEarthquake.getLng()),
-                LocalDateTime.parse(geoEarthquake.getDatetime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), geoEarthquake.getDepth());
-    }
 }
