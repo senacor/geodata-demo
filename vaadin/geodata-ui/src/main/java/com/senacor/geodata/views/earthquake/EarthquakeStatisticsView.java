@@ -1,6 +1,6 @@
 package com.senacor.geodata.views.earthquake;
 
-import com.senacor.geodata.service.GeoDataService;
+import com.senacor.geodata.presenter.EartquakeSearchPresenter;
 import com.senacor.geodata.views.AbstractCommonView;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringView;
@@ -16,17 +16,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class EarthquakeStatisticsView extends AbstractCommonView {
     public static final String VIEW_NAME = "EarthquakeStatisticsView";
     @Autowired
-    private GeoDataService geoDataService;
+    private EartquakeSearchPresenter earthquakeSearchPresenter;
 
     @Override
     protected void addContentsTo(VerticalLayout container) {
-        EarthquakeSearchForm earthquakeSearchForm = new EarthquakeSearchForm(this.geoDataService);
+        EarthquakeSearchForm earthquakeSearchForm = new EarthquakeSearchForm(earthquakeSearchPresenter);
 
         EarthquakeSearchResultsTable results = new EarthquakeSearchResultsTable("");
+        earthquakeSearchPresenter.addSearchResultsChangedListener(results);
         results.setVisible(false);
 
         container.addComponent(earthquakeSearchForm);
-        earthquakeSearchForm.addSearchResultsChangedListener(results);
         container.addComponent(results);
     }
 
@@ -37,7 +37,6 @@ public class EarthquakeStatisticsView extends AbstractCommonView {
 
     @Override
     protected Component buildIntroduction() {
-        return new Label("This page demonstrates graphs and visual patterns.",
-                ContentMode.HTML);
+        return new Label("This page demonstrates graphs and visual patterns.", ContentMode.HTML);
     }
 }

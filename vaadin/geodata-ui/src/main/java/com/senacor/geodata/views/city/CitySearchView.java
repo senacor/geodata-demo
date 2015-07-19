@@ -1,6 +1,6 @@
 package com.senacor.geodata.views.city;
 
-import com.senacor.geodata.service.GeoDataService;
+import com.senacor.geodata.presenter.CitySearchPresenter;
 import com.senacor.geodata.views.AbstractCommonView;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringView;
@@ -17,12 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class CitySearchView extends AbstractCommonView {
     public static final String VIEW_NAME = "CitySearchView";
 
-    private GeoDataService geoDataService;
-
     @Autowired
-    public CitySearchView(GeoDataService geoDataService) {
-        this.geoDataService = geoDataService;
-    }
+    private CitySearchPresenter citySearchPresenter;
 
     @Override
     protected String getHeaderCaption() {
@@ -38,8 +34,8 @@ public class CitySearchView extends AbstractCommonView {
 
         final CitySearchResultsTable table = new CitySearchResultsTable("");
         table.setVisible(false);
-        final CitySearchForm citySearchForm = new CitySearchForm(geoDataService);
-        citySearchForm.addSearchResultsChangedListener(table);
+        final CitySearchForm citySearchForm = new CitySearchForm(citySearchPresenter);
+        citySearchPresenter.addSearchResultsChangedListener(table);
         final CityDetails cityDetails = new CityDetails(null);
         cityDetails.setVisible(false);
         table.addValueChangeListener(cityDetails);

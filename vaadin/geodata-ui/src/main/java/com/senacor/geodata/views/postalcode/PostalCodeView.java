@@ -1,6 +1,6 @@
 package com.senacor.geodata.views.postalcode;
 
-import com.senacor.geodata.service.GeoDataService;
+import com.senacor.geodata.presenter.ZipcodeSearchPresenter;
 import com.senacor.geodata.views.AbstractCommonView;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringView;
@@ -17,7 +17,7 @@ public class PostalCodeView extends AbstractCommonView {
     public static final String VIEW_NAME = "PostalCodeView";
 
     @Autowired
-    private GeoDataService geoDataService;
+    private ZipcodeSearchPresenter zipcodeSearchPresenter;
 
     @Override
     protected String getHeaderCaption() {
@@ -26,13 +26,13 @@ public class PostalCodeView extends AbstractCommonView {
 
     @Override
     protected void addContentsTo(VerticalLayout container) {
-        ZipcodeSearchForm zipcodeSearchForm = new ZipcodeSearchForm(this.geoDataService);
+        ZipcodeSearchForm zipcodeSearchForm = new ZipcodeSearchForm(zipcodeSearchPresenter);
 
         ZipcodeSearchResultsTable results = new ZipcodeSearchResultsTable("");
         results.setVisible(false);
 
         container.addComponent(zipcodeSearchForm);
-        zipcodeSearchForm.addSearchResultsChangedListener(results);
+        zipcodeSearchPresenter.addSearchResultsChangedListener(results);
         container.addComponent(results);
     }
 
