@@ -10,6 +10,8 @@ import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
+import static com.vaadin.ui.Notification.Type.TRAY_NOTIFICATION;
+
 /**
  * @author dschmitz
  */
@@ -49,9 +51,7 @@ public class CityDetails extends Panel implements Property.ValueChangeListener {
         return mapBrowser;
     }
 
-    private String buildBingUrl() {
-        return String.format("https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=%s~%s&lvl=12&w=600&h=400&sty=r&typ=s&pp=&ps=55&dir=0&mkt=de-de&src=SHELL&form=BMEMJS", this.city.getMapPosition().getLatitute(), this.city.getMapPosition().getLongitude());
-    }
+
 
     private Component buildWikipediaDetails(City value) {
         wikipediaBrowser = new BrowserFrame("Browser");
@@ -59,10 +59,6 @@ public class CityDetails extends Panel implements Property.ValueChangeListener {
         wikipediaBrowser.setHeight("400px");
 
         return wikipediaBrowser;
-    }
-
-    private String buildWikipediaUrl() {
-        return "http://" + this.wikipedia.getValue().replace("en.wikipedia", "en.m.wikipedia");
     }
 
     private VerticalLayout buildDetailsForm(City value) {
@@ -96,7 +92,11 @@ public class CityDetails extends Panel implements Property.ValueChangeListener {
 
         this.city = value;
 
-        mapBrowser.setSource(new ExternalResource(buildBingUrl()));
-        wikipediaBrowser.setSource(new ExternalResource(buildWikipediaUrl()));
+        Notification.show("Loading city info", "Loading map data from bing", TRAY_NOTIFICATION);
+        mapBrowser.setSource(new ExternalResource(this.city.buildBingUrl()));
+
+        // TODO: how to replace error pane with "you are offline"
+        Notification.show("Loading city info", "Loading city details from wikipedia", TRAY_NOTIFICATION);
+        wikipediaBrowser.setSource(new ExternalResource(this.city.buildWikipediaUrl()));
     }
 }

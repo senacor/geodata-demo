@@ -1,16 +1,16 @@
 package com.senacor.geodata.presenter;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.util.Map;
-
 import com.senacor.geodata.views.events.SearchResultsChangedListener;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Map;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by mblume on 19.07.15.
@@ -22,7 +22,7 @@ public class BaseSearchPresenterTest {
     private Map<SearchResultsChangedListener, Boolean> listeners;
 
     @InjectMocks
-    private BaseSearchPresenter<String> baseSearchPresenter = new BaseSearchPresenter<String>() {
+    private AbstractSearchPresenter<String, Object> baseSearchPresenter = new AbstractSearchPresenter<String, Object>() {
         @Override
         public void executeSearch(String searchParameter) {
             // do nothing, not part of the test
@@ -31,7 +31,8 @@ public class BaseSearchPresenterTest {
 
     @Test
     public void addsSearchResultsChangedListener() {
-        SearchResultsChangedListener listener = mock(SearchResultsChangedListener.class);
+        @SuppressWarnings("unchecked")
+        SearchResultsChangedListener<Object> listener = mock(SearchResultsChangedListener.class);
 
         baseSearchPresenter.addSearchResultsChangedListener(listener);
 

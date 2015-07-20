@@ -30,17 +30,20 @@ public class CitySearchResultsTable extends Table implements SearchResultsChange
         setColumnHeader("mapPosition", "Map location");
         setColumnHeader("country", "Country");
         setNullSelectionAllowed(false);
-        // how to omit columns
 
-        setVisibleColumns("name", "mapPosition", "country");
+        setVisibleColumnsOnTable();
 
         setSelectable(true);
+    }
+
+    private void setVisibleColumnsOnTable() {
+        setVisibleColumns("name", "mapPosition", "country");
     }
 
     @Override
     public void onSearchResultsChanged(SearchResultsChangedEvent<City> event) {
         setContainerDataSource(new ListContainer<>(event.getSearchResult()));
-
+        setVisibleColumnsOnTable();
         if (event.getSearchResult().isEmpty()) {
             show("City search", "The search returned no results. Try other coordinates", TRAY_NOTIFICATION);
         } else {

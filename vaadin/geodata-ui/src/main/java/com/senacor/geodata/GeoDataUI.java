@@ -13,6 +13,7 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +26,10 @@ import javax.servlet.annotation.WebServlet;
 @Title("geoData")
 @Push
 public class GeoDataUI extends UI {
+    static {
+        SLF4JBridgeHandler.install();
+    }
+
     private SpringViewProvider viewProvider;
 
     @Autowired

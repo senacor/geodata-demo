@@ -28,5 +28,9 @@ public class MapPositionBoxForm extends FormLayout {
         this.west = new TextField("West");
 
         addComponents(this.north, this.east, this.south, this.west);
+        this.north.setImmediate(true);
+        this.east.setImmediate(true);
+        this.south.setImmediate(true);
+        this.west.setImmediate(true);
     }
 }

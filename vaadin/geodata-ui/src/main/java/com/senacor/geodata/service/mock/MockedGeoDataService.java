@@ -1,23 +1,14 @@
 package com.senacor.geodata.service.mock;
 
-import static java.lang.Math.random;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-import javax.validation.constraints.NotNull;
-
-import com.senacor.geodata.model.City;
-import com.senacor.geodata.model.Earthquake;
-import com.senacor.geodata.model.MapPosition;
-import com.senacor.geodata.model.MapPositionBox;
-import com.senacor.geodata.model.Zipcode;
-import com.senacor.geodata.model.ZipcodeSearchParameter;
+import com.senacor.geodata.model.*;
 import com.senacor.geodata.service.GeoDataService;
 import com.senacor.geodata.service.Mock;
+
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.*;
+
+import static java.lang.Math.random;
 
 /**
  * @author dschmitz
@@ -50,14 +41,11 @@ public class MockedGeoDataService implements GeoDataService {
 
     @Override
     public List<City> findCitiesBy(@NotNull MapPositionBox mapPositionBox) {
-        // we'll create some random wait-time
-        waitState();
         return new ArrayList<>(CITIES);
     }
 
     @Override
     public List<Earthquake> findRecentEarthquakesWithin(@NotNull MapPositionBox mapPositionBox) {
-        waitState();
         return new ArrayList<>(EARTHQUAKES);
     }
 

@@ -1,5 +1,7 @@
 package com.senacor.geodata.model;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 /**
@@ -8,9 +10,17 @@ import java.io.Serializable;
  * @author dschmitz
  */
 public class MapPositionBox implements Serializable {
+    @Min(-90)
+    @Max(90)
     private double north;
+    @Min(-90)
+    @Max(90)
     private double south;
+    @Min(-90)
+    @Max(90)
     private double east;
+    @Min(-90)
+    @Max(90)
     private double west;
 
     public MapPositionBox(double north, double south, double east, double west) {
@@ -64,5 +74,15 @@ public class MapPositionBox implements Serializable {
                 ", east=" + east +
                 ", west=" + west +
                 '}';
+    }
+
+    public static MapPositionBox around(MapPosition pos) {
+        // obviously wrong
+        double north = pos.getLatitute() - 1.5;
+        double south = pos.getLatitute() + 1.5;
+        double east = pos.getLongitude() - 1.5;
+        double west = pos.getLongitude() + 1.5;
+
+        return new MapPositionBox(north, south, east, west);
     }
 }

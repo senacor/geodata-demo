@@ -46,6 +46,14 @@ public class City implements Serializable {
         return wikipedia;
     }
 
+    public String buildBingUrl() {
+        return String.format("https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=%s~%s&lvl=12&w=600&h=400&sty=r&typ=s&pp=&ps=55&dir=0&mkt=de-de&src=SHELL&form=BMEMJS", getMapPosition().getLatitute(), getMapPosition().getLongitude());
+    }
+
+    public String buildWikipediaUrl() {
+        return "http://" + getWikipedia().replace("en.wikipedia", "en.m.wikipedia");
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

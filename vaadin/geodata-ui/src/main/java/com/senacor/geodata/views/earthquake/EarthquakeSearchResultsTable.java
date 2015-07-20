@@ -29,8 +29,8 @@ public class EarthquakeSearchResultsTable extends Table implements SearchResults
         setColumnHeader("mapPosition", "Map location");
         setColumnHeader("dateTime", "Date and time");
         setColumnHeader("depth", "Depth");
-        // how to omit columns??
-        setVisibleColumns("dateTime", "mapPosition", "magnitude", "depth");
+
+        setVisibleColumnsOnTable();
 
         setSelectable(true);
         setNullSelectionAllowed(false);
@@ -40,11 +40,15 @@ public class EarthquakeSearchResultsTable extends Table implements SearchResults
     @Override
     public void onSearchResultsChanged(SearchResultsChangedEvent<Earthquake> event) {
         setContainerDataSource(new ListContainer<>(event.getSearchResult()));
-
+        setVisibleColumnsOnTable();
         if (event.getSearchResult().isEmpty()) {
             show("City search", "The search returned no results. Try other coordinates", TRAY_NOTIFICATION);
         } else {
             setVisible(true);
         }
+    }
+
+    private void setVisibleColumnsOnTable() {
+        setVisibleColumns("dateTime", "mapPosition", "magnitude", "depth");
     }
 }
