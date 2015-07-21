@@ -9,6 +9,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
+ * Converter for LocalDateTimes to ISO-Dates.
+ *
  * @author dschmitz
  */
 public class LocalDateTimeToStringConverter implements Converter<String, LocalDateTime> {
