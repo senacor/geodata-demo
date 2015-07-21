@@ -1,5 +1,8 @@
 package com.senacor.geodata.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +11,7 @@ import java.io.Serializable;
  * @author dschmitz
  */
 public class City implements Serializable {
+    static final String BING_URL_PATTERN = "https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=%s~%s&lvl=12&w=600&h=400&sty=r&typ=s&pp=&ps=55&dir=0&mkt=de-de&src=SHELL&form=BMEMJS";
     private final String name;
     private final MapPosition mapPosition;
     private final String country;
@@ -47,7 +51,7 @@ public class City implements Serializable {
     }
 
     public String buildBingUrl() {
-        return String.format("https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=%s~%s&lvl=12&w=600&h=400&sty=r&typ=s&pp=&ps=55&dir=0&mkt=de-de&src=SHELL&form=BMEMJS", getMapPosition().getLatitute(), getMapPosition().getLongitude());
+        return String.format(BING_URL_PATTERN, getMapPosition().getLatitute(), getMapPosition().getLongitude());
     }
 
     public String buildWikipediaUrl() {
@@ -56,38 +60,30 @@ public class City implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof City)) {
             return false;
         }
 
-        City city = (City) o;
-
-        if (name != null ? !name.equals(city.name) : city.name != null) {
-            return false;
-        }
-        if (mapPosition != null ? !mapPosition.equals(city.mapPosition) : city.mapPosition != null) {
-            return false;
-        }
-        return !(country != null ? !country.equals(city.country) : city.country != null);
+        City other = (City) o;
+        return new EqualsBuilder()
+                .append(getGeonameId(), other.getGeonameId())
+                .append(getName(), other.getName())
+                .append(getCountry(), other.getCountry())
+                .append(getMapPosition(), other.getMapPosition())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (mapPosition != null ? mapPosition.hashCode() : 0);
-        result = 31 * result + (country != null ? country.hashCode() : 0);
-        return result;
+        return new HashCodeBuilder().append(getGeonameId()).append(getName()).append(getCountry()).append(getMapPosition()).toHashCode();
     }
 
     @Override
     public String toString() {
         return "City{" +
-            "mapPosition=" + mapPosition +
-            ", name='" + name + '\'' +
-            ", country='" + country + '\'' +
-            '}';
+                "mapPosition=" + mapPosition +
+                ", name='" + name + '\'' +
+                ", country='" + country + '\'' +
+                '}';
     }
 }
