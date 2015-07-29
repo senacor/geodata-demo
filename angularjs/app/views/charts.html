@@ -1,21 +1,22 @@
-
 <style>
   .tc-chart-js-legend {
     list-style-type: none;
     padding-left: 0px;
   }
+
   .tc-chart-js-legend li {
     display: block;
     float: left;
-    clear:both;
-    padding:10px;
+    clear: both;
+    padding: 10px;
   }
+
   .tc-chart-js-legend li span {
-    width:25px;
-    height:25px;
-    display:block;
-    float:left;
-    margin-right:10px;
+    width: 25px;
+    height: 25px;
+    display: block;
+    float: left;
+    margin-right: 10px;
   }
 </style>
 
@@ -25,12 +26,19 @@
     <hr>
   </div>
 
-
-  <div class="col-md-9">
-    <canvas chart-legend="pieChart1" chart-data="data" chart-options="options" tc-chartjs-pie="" class="ng-isolate-scope" chart="chart" ng-click="handleChartClick($event)"></canvas>
+  <div class="col-md-9" ng-drop="true" ng-drop-success="handleChartClick($data,$event)">
+    <canvas chart-legend="pieChart1" chart-data="data" chart-options="options" tc-chartjs-pie="" class="ng-isolate-scope" chart="chart"
+            ng-click="handleChartClick($event)"></canvas>
   </div>
   <div class="col-md-3">
-    <div chart-legend="pieChart1" tc-chartjs-legend="" class="ng-isolate-scope"></div>
+    <ul class="draggable-objects tc-chart-js-legend">
+      <li ng-repeat="country in data">
+        <div ng-style="{'color':'white','background-color':country.color}" ng-drag="true" ng-drag-data="country" data-allow-transform="true"
+             ng-center-anchor="true">
+          {{country.label}}
+        </div>
+      </li>
+    </ul>
   </div>
 
 </div>

@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-var angularjsApp = angular.module('angularjsApp', ['oauth', 'ngRoute', 'tc.chartjs', 'citySearch'])
+var angularjsApp = angular.module('angularjsApp', ['oauth', 'ngRoute', 'tc.chartjs', 'citySearch', 'ngDraggable'])
     .config(function ($routeProvider) {
         $routeProvider.
             when('/welcome', {
