@@ -20,7 +20,8 @@ angularjsApp.factory('neighboursFactory', ['$http', function ($http) {
 angularjsApp
     .controller('ChartsCtrl', function ($scope, neighboursFactory) {
 
-        function handleDropEvent(event) {
+        $scope.handleChartClick = function (event) {
+            console.log("drag success, event:", event);
             if ($scope.chart) {
                 // Different methods depending on chart type
                 //console.log( $scope.chart.getPointsAtEvent( event ) ); // for Points
@@ -37,12 +38,12 @@ angularjsApp
         };
 
         $scope.onDragComplete = function (data, evt) {
+            $scope.handleChartClick(evt.event);
             console.log("drag success, data:", data, evt);
         };
 
         $scope.onDropComplete = function (data, evt) {
             console.log("drop success, data:", evt.event);
-            handleDropEvent(evt.event);
         };
 
         $scope.country = {

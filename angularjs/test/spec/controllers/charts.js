@@ -74,7 +74,7 @@ describe('ChartsCtrl', function () {
             $scope.chart = true;
             // initial call to get neighbours from germany
             $httpBackend.flush();
-            $scope.onDropComplete({}, {'event': {'country': country}});
+            $scope.onDragComplete({}, {'event': {'country': country}});
             // call to get neighbours
             $httpBackend.flush();
         }
