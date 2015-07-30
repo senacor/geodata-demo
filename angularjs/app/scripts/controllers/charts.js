@@ -20,8 +20,7 @@ angularjsApp.factory('neighboursFactory', ['$http', function ($http) {
 angularjsApp
     .controller('ChartsCtrl', function ($scope, neighboursFactory) {
 
-        $scope.handleChartClick = function (event) {
-            console.log("drag success, event:", event);
+        function handleDropEvent(event) {
             if ($scope.chart) {
                 // Different methods depending on chart type
                 //console.log( $scope.chart.getPointsAtEvent( event ) ); // for Points
@@ -38,12 +37,12 @@ angularjsApp
         };
 
         $scope.onDragComplete = function (data, evt) {
-            $scope.handleChartClick(evt.event);
             console.log("drag success, data:", data, evt);
         };
 
         $scope.onDropComplete = function (data, evt) {
             console.log("drop success, data:", evt.event);
+            handleDropEvent(evt.event);
         };
 
         $scope.country = {
@@ -93,6 +92,7 @@ angularjsApp
 
             neighboursFactory.getNeighbours(country)
                 .success(function (data) {
+                    console.log('returned from http');
                     $scope.data = createChartData(data.geonames);
                 })
                 .error(function (error) {
@@ -118,7 +118,6 @@ angularjsApp
                 };
                 data.push(countryChartData);
             }
-
             return data;
         }
 
