@@ -3,6 +3,8 @@ package com.senacor.geodata.model;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 /**
@@ -11,7 +13,11 @@ import java.io.Serializable;
  * @author dschmitz
  */
 public class MapPosition implements Serializable {
+    @Min(0)
+    @Max(180)
     private final double latitute;
+    @Min(0)
+    @Max(360)
     private final double longitude;
 
     public MapPosition(double latitute, double longitude) {

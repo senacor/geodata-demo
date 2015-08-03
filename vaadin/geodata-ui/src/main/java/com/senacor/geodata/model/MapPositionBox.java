@@ -1,8 +1,13 @@
 package com.senacor.geodata.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
+
+import static java.lang.Math.abs;
 
 /**
  * Bean representing the coordinate box outline on a given map.
@@ -10,17 +15,17 @@ import java.io.Serializable;
  * @author dschmitz
  */
 public class MapPositionBox implements Serializable {
-    @Min(-90)
-    @Max(90)
+    @Min(0)
+    @Max(180)
     private double north;
-    @Min(-90)
-    @Max(90)
+    @Min(0)
+    @Max(180)
     private double south;
-    @Min(-90)
-    @Max(90)
+    @Min(0)
+    @Max(360)
     private double east;
-    @Min(-90)
-    @Max(90)
+    @Min(0)
+    @Max(360)
     private double west;
 
     public MapPositionBox(double north, double south, double east, double west) {
@@ -76,12 +81,33 @@ public class MapPositionBox implements Serializable {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        // lazy...
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
     public static MapPositionBox around(MapPosition pos) {
         // obviously wrong
         double north = pos.getLatitute() - 1.5;
+        north = abs(north);
+
         double south = pos.getLatitute() + 1.5;
-        double east = pos.getLongitude() - 1.5;
-        double west = pos.getLongitude() + 1.5;
+        if (south > 180d) {
+            south = 180d - (south - 180d);
+        }
+
+        // TODO: this should be easier using java?
+        double west = pos.getLongitude() - 1.5;
+        if (west < 0) {
+            west += 360d;
+        }
+        double east = (pos.getLongitude() + 1.5) % 360;
 
         return new MapPositionBox(north, south, east, west);
     }
