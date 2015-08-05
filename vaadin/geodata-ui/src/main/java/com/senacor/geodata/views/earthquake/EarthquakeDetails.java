@@ -109,6 +109,11 @@ public class EarthquakeDetails extends Panel implements Property.ValueChangeList
     @Override
     public void valueChange(Property.ValueChangeEvent event) {
         Earthquake quake = (Earthquake) event.getProperty().getValue();
+        if (null == quake) {
+            setVisible(false);
+            return;
+        }
+
         setVisible(true);
 
         this.earthquake = quake;

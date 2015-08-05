@@ -84,6 +84,11 @@ public class CityDetails extends Panel implements Property.ValueChangeListener {
     @Override
     public void valueChange(Property.ValueChangeEvent event) {
         City value = (City) event.getProperty().getValue();
+        if (null == value) {
+            setVisible(false);
+            return;
+        }
+
         setVisible(true);
 
         FieldGroup binder = new FieldGroup();
