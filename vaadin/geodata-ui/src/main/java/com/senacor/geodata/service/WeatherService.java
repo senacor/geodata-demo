@@ -1,6 +1,6 @@
 package com.senacor.geodata.service;
 
-import com.senacor.geodata.model.MapPosition;
+import com.senacor.geodata.model.SphericalCoordinates;
 import com.senacor.geodata.model.SunriseSunsetTime;
 
 import javax.validation.constraints.NotNull;
@@ -19,5 +19,5 @@ public interface WeatherService {
      * @param position the map position
      * @return the sunrise/sunset info
      */
-    SunriseSunsetTime retrieveSunriseSunsetTime(@NotNull MapPosition position, @NotNull LocalDate date);
+    SunriseSunsetTime retrieveSunriseSunsetTime(@NotNull SphericalCoordinates position, @NotNull LocalDate date);
 }

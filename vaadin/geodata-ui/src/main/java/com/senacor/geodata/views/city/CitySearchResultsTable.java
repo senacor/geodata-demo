@@ -27,7 +27,7 @@ public class CitySearchResultsTable extends Table implements SearchResultsChange
 
         setContainerDataSource(beanContainer);
         setColumnHeader("name", "City name");
-        setColumnHeader("mapPosition", "Map location");
+        setColumnHeader("sphericalCoordinates", "Map location");
         setColumnHeader("country", "Country");
         setNullSelectionAllowed(false);
 
@@ -37,7 +37,7 @@ public class CitySearchResultsTable extends Table implements SearchResultsChange
     }
 
     private void setVisibleColumnsOnTable() {
-        setVisibleColumns("name", "mapPosition", "country");
+        setVisibleColumns("name", "sphericalCoordinates", "country");
     }
 
     @Override

@@ -3,6 +3,8 @@ package com.senacor.geodata.model;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.annotation.Nonnull;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -12,26 +14,31 @@ import java.io.Serializable;
  */
 public class City implements Serializable {
     static final String BING_URL_PATTERN = "https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=%s~%s&lvl=12&w=600&h=400&sty=r&typ=s&pp=&ps=55&dir=0&mkt=de-de&src=SHELL&form=BMEMJS";
+    @NotNull
     private final String name;
-    private final MapPosition mapPosition;
+    @NotNull
+    private final SphericalCoordinates sphericalCoordinates;
+    @NotNull
     private final String country;
+    @NotNull
     private final String geonameId;
+    @NotNull
     private final String wikipedia;
 
-    public City(String geonameId, String name, String country, MapPosition mapPosition, String wikipedia) {
+    public City(@Nonnull String geonameId, @Nonnull String name, @Nonnull String country, @Nonnull SphericalCoordinates sphericalCoordinates, String wikipedia) {
         this.geonameId = geonameId;
-        this.mapPosition = mapPosition;
+        this.sphericalCoordinates = sphericalCoordinates;
         this.name = name;
         this.country = country;
         this.wikipedia = wikipedia;
     }
 
     public City() {
-        this("", "", "", new MapPosition(0d, 0d), "");
+        this("", "", "", new SphericalCoordinates(0d, 0d), "");
     }
 
-    public MapPosition getMapPosition() {
-        return mapPosition;
+    public SphericalCoordinates getSphericalCoordinates() {
+        return sphericalCoordinates;
     }
 
     public String getName() {
@@ -51,7 +58,7 @@ public class City implements Serializable {
     }
 
     public String buildBingUrl() {
-        return String.format(BING_URL_PATTERN, getMapPosition().getLatitute(), getMapPosition().getLongitude());
+        return String.format(BING_URL_PATTERN, getSphericalCoordinates().getLatitute(), getSphericalCoordinates().getLongitude());
     }
 
     public String buildWikipediaUrl() {
@@ -59,29 +66,19 @@ public class City implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof City)) {
-            return false;
-        }
-
-        City other = (City) o;
-        return new EqualsBuilder()
-                .append(getGeonameId(), other.getGeonameId())
-                .append(getName(), other.getName())
-                .append(getCountry(), other.getCountry())
-                .append(getMapPosition(), other.getMapPosition())
-                .isEquals();
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(getGeonameId()).append(getName()).append(getCountry()).append(getMapPosition()).toHashCode();
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     @Override
     public String toString() {
         return "City{" +
-                "mapPosition=" + mapPosition +
+                "sphericalCoordinates=" + sphericalCoordinates +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
                 '}';

@@ -1,11 +1,11 @@
 package com.senacor.geodata.service.geoname;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.senacor.geodata.model.Earthquake;
-import com.senacor.geodata.model.MapPosition;
+import com.senacor.geodata.model.SphericalCoordinates;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author dschmitz
@@ -68,7 +68,7 @@ public class GeoEarthquake {
     }
 
     public Earthquake toEarthquake() {
-        return new Earthquake(getEqid(), getMagnitude(), new MapPosition(getLat(), getLng()), LocalDateTime.parse(getDatetime(),
+        return new Earthquake(getEqid(), getMagnitude(), new SphericalCoordinates(getLat(), getLng()), LocalDateTime.parse(getDatetime(),
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), getDepth());
     }
 }

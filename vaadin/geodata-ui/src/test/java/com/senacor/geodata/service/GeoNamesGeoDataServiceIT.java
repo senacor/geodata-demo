@@ -3,8 +3,8 @@ package com.senacor.geodata.service;
 import com.senacor.geodata.TestApplicationContext;
 import com.senacor.geodata.model.City;
 import com.senacor.geodata.model.Earthquake;
-import com.senacor.geodata.model.MapPosition;
 import com.senacor.geodata.model.MapPositionBox;
+import com.senacor.geodata.model.SphericalCoordinates;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class GeoNamesGeoDataServiceIT {
     public void finding_cities_contains_mexico_city() {
         List<City> cities = this.geoNamesGeoDataService.findCitiesBy(new MapPositionBox(44.1d, -9.9d, -22.4d, 55.2d));
 
-        assertTrue(cities.contains(new City("3530597", "Mexiko-Stadt", "MX", new MapPosition(19.428472427036d, -99.12766456604d), "en.wikipedia.org/wiki/Mexico_City")));
+        assertTrue(cities.contains(new City("3530597", "Mexiko-Stadt", "MX", new SphericalCoordinates(19.428472427036d, -99.12766456604d), "en.wikipedia.org/wiki/Mexico_City")));
     }
 
     @Test

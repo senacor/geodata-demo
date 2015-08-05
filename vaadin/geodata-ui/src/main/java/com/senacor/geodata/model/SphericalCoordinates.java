@@ -12,7 +12,7 @@ import java.io.Serializable;
  *
  * @author dschmitz
  */
-public class MapPosition implements Serializable {
+public class SphericalCoordinates implements Serializable {
     @Min(0)
     @Max(180)
     private final double latitute;
@@ -20,7 +20,7 @@ public class MapPosition implements Serializable {
     @Max(360)
     private final double longitude;
 
-    public MapPosition(double latitute, double longitude) {
+    public SphericalCoordinates(double latitute, double longitude) {
         this.latitute = latitute;
         this.longitude = longitude;
     }
@@ -35,7 +35,7 @@ public class MapPosition implements Serializable {
 
     @Override
     public String toString() {
-        return "MapPosition{" +
+        return "SphericalCoordinates{" +
                 "latitute=" + latitute +
                 ", longitude=" + longitude +
                 '}';
@@ -43,11 +43,11 @@ public class MapPosition implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof MapPosition)) {
+        if (!(obj instanceof SphericalCoordinates)) {
             return false;
         }
 
-        MapPosition other = (MapPosition) obj;
+        SphericalCoordinates other = (SphericalCoordinates) obj;
         return new EqualsBuilder()
                 .append(this.longitude, other.longitude)
                 .append(this.latitute, other.latitute)

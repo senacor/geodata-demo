@@ -2,22 +2,21 @@
     'use strict';
     var mod = angular.module('citySearch', []);
 
-    function Mapbox(north, south, east, west) {
-        this.north = north;
-        this.south = south;
-        this.east = east;
-        this.west = west;
-    }
+    mod.controller('CitySearchCtrl', ['$scope','$http', function ($scope, $http) {
+        $scope.mapbox = {
+            north : 0,
+            south : 0,
+            east : 0,
+            west : 0
+        };
 
+        $scope.searchCitiesInBox = function () {
+            var data = $http.get("cityNames.json").success(function (response) { return response.data; });
 
-    var CitySearchCtrl = function ($scope) {
-        $scope.mapbox = new Mapbox(0, 0, 0, 0);
+            console.log("Data ", data);
 
-        $scope.searchCitiesInBox = function ($scope) {
-            return {};
-        }
-    }
-
-    mod.controller('CitySearchCtrl', CitySearchCtrl);
+            return data;
+        }        
+    }]);
 })();
 

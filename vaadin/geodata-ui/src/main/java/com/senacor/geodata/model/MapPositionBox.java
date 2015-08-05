@@ -3,11 +3,10 @@ package com.senacor.geodata.model;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.annotation.Nonnull;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
-
-import static java.lang.Math.abs;
 
 /**
  * Bean representing the coordinate box outline on a given map.
@@ -15,17 +14,17 @@ import static java.lang.Math.abs;
  * @author dschmitz
  */
 public class MapPositionBox implements Serializable {
-    @Min(0)
-    @Max(180)
+    @Min(-90)
+    @Max(90)
     private double north;
-    @Min(0)
-    @Max(180)
+    @Min(-90)
+    @Max(90)
     private double south;
-    @Min(0)
-    @Max(360)
+    @Min(-90)
+    @Max(90)
     private double east;
-    @Min(0)
-    @Max(360)
+    @Min(-90)
+    @Max(90)
     private double west;
 
     public MapPositionBox(double north, double south, double east, double west) {
@@ -92,22 +91,20 @@ public class MapPositionBox implements Serializable {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
-    public static MapPositionBox around(MapPosition pos) {
+    /**
+     * Calculates an obviously wrong bounding box for a given lat/long.
+     *
+     * TODO: Instead of this crap here, we should implement something like http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates
+     *
+     * @param pos the starting position for creating the bounding box
+     * @return the bounding box
+     */
+    public static MapPositionBox around(@Nonnull SphericalCoordinates pos) {
         // obviously wrong
-        double north = pos.getLatitute() - 1.5;
-        north = abs(north);
-
-        double south = pos.getLatitute() + 1.5;
-        if (south > 180d) {
-            south = 180d - (south - 180d);
-        }
-
-        // TODO: this should be easier using java?
-        double west = pos.getLongitude() - 1.5;
-        if (west < 0) {
-            west += 360d;
-        }
-        double east = (pos.getLongitude() + 1.5) % 360;
+        double north = pos.getLongitude() - 0.5;
+        double south = pos.getLongitude() + 0.5;
+        double east = pos.getLatitute() - 0.5;
+        double west = pos.getLatitute() + 0.5;
 
         return new MapPositionBox(north, south, east, west);
     }

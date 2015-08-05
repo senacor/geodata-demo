@@ -1,7 +1,7 @@
 package com.senacor.geodata.views.earthquake;
 
 import com.senacor.geodata.model.Earthquake;
-import com.senacor.geodata.model.MapPosition;
+import com.senacor.geodata.model.SphericalCoordinates;
 import com.senacor.geodata.presenter.EartquakeSearchPresenter;
 import com.senacor.geodata.service.GeoDataService;
 import com.senacor.geodata.views.AbstractCommonView;
@@ -45,7 +45,7 @@ public class EarthquakeStatisticsView extends AbstractCommonView {
         container.addComponent(earthquakeSearchForm);
         container.addComponent(results);
 
-        EarthquakeDetails earthquakeDetails = new EarthquakeDetails(this.earthquakeSearchPresenter, geoDataService, new Earthquake("", 0, new MapPosition(0, 0), LocalDateTime.now(), 0d));
+        EarthquakeDetails earthquakeDetails = new EarthquakeDetails(this.earthquakeSearchPresenter, geoDataService, new Earthquake("", 0, new SphericalCoordinates(0, 0), LocalDateTime.now(), 0d));
         results.addValueChangeListener(earthquakeDetails);
         earthquakeDetails.setVisible(false);
 

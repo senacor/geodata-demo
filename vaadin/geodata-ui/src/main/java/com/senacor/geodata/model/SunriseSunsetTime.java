@@ -17,35 +17,23 @@ public class SunriseSunsetTime implements Serializable {
     private final LocalDate date;
     private final LocalTime sunrise;
     private final LocalTime sunset;
-    private final MapPosition mapPosition;
+    private final SphericalCoordinates sphericalCoordinates;
 
-    public SunriseSunsetTime(LocalDate date, LocalTime sunrise, LocalTime sunset, MapPosition mapPosition) {
+    public SunriseSunsetTime(LocalDate date, LocalTime sunrise, LocalTime sunset, SphericalCoordinates sphericalCoordinates) {
         this.date = date;
         this.sunrise = sunrise;
         this.sunset = sunset;
-        this.mapPosition = mapPosition;
+        this.sphericalCoordinates = sphericalCoordinates;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof SunriseSunsetTime)) {
-            return false;
-        }
-        SunriseSunsetTime other = (SunriseSunsetTime) o;
-        return new EqualsBuilder().append(this.date, other.date)
-                .append(this.sunrise, other.sunrise)
-                .append(this.sunset, other.sunset)
-                .append(this.mapPosition, other.mapPosition).isEquals();
+        return EqualsBuilder.reflectionEquals(this, o);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder()
-                .append(this.date)
-                .append(this.sunrise)
-                .append(this.sunset)
-                .append(this.mapPosition)
-                .toHashCode();
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     @Override
@@ -54,7 +42,7 @@ public class SunriseSunsetTime implements Serializable {
                 "date=" + date +
                 ", sunrise=" + sunrise +
                 ", sunset=" + sunset +
-                ", mapPosition=" + mapPosition +
+                ", sphericalCoordinates=" + sphericalCoordinates +
                 '}';
     }
 }

@@ -114,7 +114,7 @@ public class EarthquakeDetails extends Panel implements Property.ValueChangeList
         this.earthquake = quake;
 
         // build map bounding box
-        MapPositionBox mapPositionBox = MapPositionBox.around(this.earthquake.getMapPosition());
+        MapPositionBox mapPositionBox = MapPositionBox.around(this.earthquake.getSphericalCoordinates());
 
         this.citySearchResultsTable.onSearchResultsChanged(new SearchResultsChangedEvent<>(this.geoDataService.findCitiesBy(mapPositionBox)));
         binder.setItemDataSource(new BeanItem<>(this.earthquake));

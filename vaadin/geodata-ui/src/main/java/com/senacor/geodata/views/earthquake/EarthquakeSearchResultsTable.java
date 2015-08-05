@@ -26,7 +26,7 @@ public class EarthquakeSearchResultsTable extends Table implements SearchResults
 
         setContainerDataSource(beanContainer);
         setColumnHeader("magnitude", "Magnitude");
-        setColumnHeader("mapPosition", "Map location");
+        setColumnHeader("sphericalCoordinates", "Map location");
         setColumnHeader("dateTime", "Date and time");
         setColumnHeader("depth", "Depth");
 
@@ -49,6 +49,6 @@ public class EarthquakeSearchResultsTable extends Table implements SearchResults
     }
 
     private void setVisibleColumnsOnTable() {
-        setVisibleColumns("dateTime", "mapPosition", "magnitude", "depth");
+        setVisibleColumns("dateTime", "sphericalCoordinates", "magnitude", "depth");
     }
 }

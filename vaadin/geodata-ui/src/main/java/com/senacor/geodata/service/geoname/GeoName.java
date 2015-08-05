@@ -2,7 +2,7 @@ package com.senacor.geodata.service.geoname;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.senacor.geodata.model.City;
-import com.senacor.geodata.model.MapPosition;
+import com.senacor.geodata.model.SphericalCoordinates;
 
 /**
  * @author dschmitz
@@ -17,7 +17,7 @@ public class GeoName {
     private String wikipedia;
 
     public City toCity() {
-        return new City(getGeonameId(), getName(), getCountrycode(), new MapPosition(getLat(), getLng()), getWikipedia());
+        return new City(getGeonameId(), getName(), getCountrycode(), new SphericalCoordinates(getLat(), getLng()), getWikipedia());
     }
 
     public String getGeonameId() {
