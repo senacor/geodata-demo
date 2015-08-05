@@ -1,5 +1,9 @@
 package com.senacor.geodata;
 
+import org.springframework.aop.Advisor;
+import org.springframework.aop.aspectj.AspectJExpressionPointcut;
+import org.springframework.aop.interceptor.JamonPerformanceMonitorInterceptor;
+import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
@@ -17,8 +21,20 @@ public class DemoUiBasedOnVaadingApplication {
             CommonsRequestLoggingFilter crlf = new CommonsRequestLoggingFilter();
             crlf.setIncludeClientInfo(true);
             crlf.setIncludeQueryString(true);
-//            crlf.setIncludePayload(true);
             return crlf;
+        }
+
+        @Bean
+        public JamonPerformanceMonitorInterceptor jamonPerformanceMonitorInterceptor() {
+            return new JamonPerformanceMonitorInterceptor();
+        }
+
+        @Bean
+        public Advisor performanceAdvisor() {
+            AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+            // apply aspect to views, only
+            pointcut.setExpression("execution(public * com.senacor.geodata.views.*.*(..))");
+            return new DefaultPointcutAdvisor(pointcut, jamonPerformanceMonitorInterceptor());
         }
     }
 
