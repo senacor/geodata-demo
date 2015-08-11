@@ -1,10 +1,5 @@
 package com.senacor.geodata.presenter;
 
-import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-
-import java.util.Arrays;
-
 import com.senacor.geodata.model.City;
 import com.senacor.geodata.model.MapPositionBox;
 import com.senacor.geodata.service.GeoDataService;
@@ -14,12 +9,13 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Arrays;
+
+import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by mblume on 19.07.15.
@@ -32,7 +28,7 @@ public class CitySearchPresenterTest extends TestCase {
     @Mock
     private MapPositionBox mapPositionBox;
     @Mock
-    private SearchResultsChangedListener listener;
+    private SearchResultsChangedListener<City> listener;
     @Mock
     private City city1;
     @Mock

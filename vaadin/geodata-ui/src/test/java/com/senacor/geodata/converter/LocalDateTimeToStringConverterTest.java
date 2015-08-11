@@ -22,7 +22,6 @@ public class LocalDateTimeToStringConverterTest {
     public void a_local_date_is_converted_to_an_iso_date_string() {
         String result = new LocalDateTimeToStringConverter().convertToPresentation(DATE_TIME_VALUE, null, GERMAN);
 
-        //2011-12-03T10:15:30+01:00
         assertEquals("1976-09-08T19:16:10", result);
     }
 

@@ -5,6 +5,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+import javax.annotation.Nonnull;
 
 /**
  * Abstract base panel that is used for forms.
@@ -17,7 +18,7 @@ public abstract class AbstractCommonForm extends Panel {
      * @param caption the caption of the panel
      * @param icon the icon next to the caption
      */
-    public AbstractCommonForm(String caption, Resource icon) {
+    public AbstractCommonForm(@Nonnull String caption, @Nonnull Resource icon) {
         super(caption);
         setIcon(icon);
         setCaptionAsHtml(true);

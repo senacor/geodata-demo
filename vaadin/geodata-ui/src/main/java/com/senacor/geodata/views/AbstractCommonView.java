@@ -9,12 +9,13 @@ import com.vaadin.ui.VerticalLayout;
 import javax.annotation.PostConstruct;
 
 /**
+ * Base view providing a vertical layout for the typical UI parts of the application.
+ *
  * @author dschmitz
  */
 public abstract class AbstractCommonView extends VerticalLayout implements View {
 
     public AbstractCommonView() {
-
     }
 
     @PostConstruct
@@ -40,9 +41,24 @@ public abstract class AbstractCommonView extends VerticalLayout implements View 
     public void enter(ViewChangeListener.ViewChangeEvent event) {
     }
 
+    /**
+     * Hook method for adding captions.
+     *
+     * @return the caption
+     */
     protected abstract String getHeaderCaption();
 
+    /**
+     * Hook method for adding contents to the layout.
+     *
+     * @param container the layout items may be added to
+     */
     protected abstract void addContentsTo(VerticalLayout container);
 
+    /**
+     * Hook method that provids an introduction text.
+     *
+     * @return the introduction text
+     */
     protected abstract Component buildIntroduction();
 }

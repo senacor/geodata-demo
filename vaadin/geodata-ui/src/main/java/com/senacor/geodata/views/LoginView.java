@@ -1,20 +1,23 @@
 package com.senacor.geodata.views;
 
 import com.senacor.geodata.GeoDataUI;
-import com.vaadin.event.ShortcutAction;
+import com.senacor.geodata.views.components.BasicPrimaryButton;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
+import javax.annotation.Nonnull;
+
 /**
- * Created by dschmitz on 14/06/15.
+ * View for login.
+ *
+ * @author dschmitz
  */
 //@Theme("valo")
 public class LoginView extends VerticalLayout {
-    public static final String VIEW_NAME = "";
     private final GeoDataUI geoDataUI;
 
-    public LoginView(GeoDataUI geoDataUI) {
+    public LoginView(@Nonnull GeoDataUI geoDataUI) {
         this.geoDataUI = geoDataUI;
         setSizeFull();
 
@@ -33,14 +36,7 @@ public class LoginView extends VerticalLayout {
     }
 
     private Component buildLoginButton() {
-        Button login = new Button("Log into GeoData", (event) -> {
-            geoDataUI.userLoggedIn();
-        });
-
-//        button.setIcon(VaadinIcons.VAADIN_V);
-        login.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        login.addStyleName(ValoTheme.BUTTON_SMALL);
-        login.setClickShortcut(ShortcutAction.KeyCode.ENTER);
+        Button login = new BasicPrimaryButton("Log into GeoData", (event) -> geoDataUI.userLoggedIn());
         login.focus();
 
         return login;

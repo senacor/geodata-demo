@@ -7,6 +7,8 @@ import com.vaadin.data.util.BeanContainer;
 import com.vaadin.ui.Table;
 import org.vaadin.viritin.ListContainer;
 
+import javax.annotation.Nonnull;
+
 import static com.vaadin.ui.Notification.Type.TRAY_NOTIFICATION;
 import static com.vaadin.ui.Notification.show;
 
@@ -15,7 +17,7 @@ import static com.vaadin.ui.Notification.show;
  */
 public class CitySearchResultsTable extends Table implements SearchResultsChangedListener<City> {
 
-    public CitySearchResultsTable(String caption) {
+    public CitySearchResultsTable(@Nonnull String caption) {
         super(caption);
 
         setSizeUndefined();

@@ -11,14 +11,21 @@ import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
+ * A view that provides a means for searching for cities within
+ * a map bounding box.
+ *
  * @author dschmitz
  */
 @SpringView(name = CitySearchView.VIEW_NAME)
 public class CitySearchView extends AbstractCommonView {
     public static final String VIEW_NAME = "CitySearchView";
 
-    @Autowired
     private CitySearchPresenter citySearchPresenter;
+
+    @Autowired
+    public CitySearchView(CitySearchPresenter citySearchPresenter) {
+        this.citySearchPresenter = citySearchPresenter;
+    }
 
     @Override
     protected String getHeaderCaption() {

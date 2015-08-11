@@ -19,9 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.annotation.WebServlet;
 
 /**
+ *
+ *
  * Created by dschmitz on 13/06/15.
  */
-@SpringUI  // (path = "/geodata")
+@SpringUI
 @Theme("geodata")
 @Title("geoData")
 @Push

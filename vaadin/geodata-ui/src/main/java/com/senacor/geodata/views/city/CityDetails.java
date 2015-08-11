@@ -38,22 +38,20 @@ public class CityDetails extends Panel implements Property.ValueChangeListener {
         detailsTabsheet.addStyleName(ValoTheme.TABSHEET_EQUAL_WIDTH_TABS);
 
         detailsTabsheet.addTab(buildDetailsForm(value), "Details");
-        detailsTabsheet.addTab(buildWikipediaDetails(value), "Wikipedia");
-        detailsTabsheet.addTab(buildMapView(value), "Map");
+        detailsTabsheet.addTab(buildWikipediaDetails(), "Wikipedia");
+        detailsTabsheet.addTab(buildMapView(), "Map");
 
         setContent(detailsTabsheet);
     }
 
-    private Component buildMapView(City value) {
+    private Component buildMapView() {
         mapBrowser = new BrowserFrame("Browser");
         mapBrowser.setWidth("600px");
         mapBrowser.setHeight("400px");
         return mapBrowser;
     }
 
-
-
-    private Component buildWikipediaDetails(City value) {
+    private Component buildWikipediaDetails() {
         wikipediaBrowser = new BrowserFrame("Browser");
         wikipediaBrowser.setWidth("600px");
         wikipediaBrowser.setHeight("400px");
@@ -83,19 +81,18 @@ public class CityDetails extends Panel implements Property.ValueChangeListener {
 
     @Override
     public void valueChange(Property.ValueChangeEvent event) {
-        City value = (City) event.getProperty().getValue();
-        if (null == value) {
+        this.city = (City) event.getProperty().getValue();
+        if (null == this.city) {
             setVisible(false);
+            mapBrowser.setSource(null);
+            wikipediaBrowser.setSource(null);
             return;
         }
-
         setVisible(true);
 
         FieldGroup binder = new FieldGroup();
-        binder.setItemDataSource(new BeanItem<>(value));
+        binder.setItemDataSource(new BeanItem<>(this.city));
         binder.bindMemberFields(this);
-
-        this.city = value;
 
         Notification.show("Loading city info", "Loading map data from bing", TRAY_NOTIFICATION);
         mapBrowser.setSource(new ExternalResource(this.city.buildBingUrl()));

@@ -5,21 +5,30 @@ import com.senacor.geodata.model.MapPositionBox;
 import com.senacor.geodata.service.GeoDataService;
 import com.senacor.geodata.views.events.SearchResultsChangedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import java.util.List;
+
+import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
 
 /**
  * Created by mblume on 19.07.15.
  */
 @Component
+@Scope(SCOPE_PROTOTYPE)
 public class CitySearchPresenter extends AbstractSearchPresenter<MapPositionBox, City> {
-    @Autowired
     private GeoDataService geoDataService;
+
+    @Autowired
+    public CitySearchPresenter(@Nonnull GeoDataService geoDataService) {
+        this.geoDataService = geoDataService;
+    }
 
     @Override
     public void executeSearch(MapPositionBox mapPositionBox) {
         List<City> cities = this.geoDataService.findCitiesBy(mapPositionBox);
-        this.listeners.keySet().forEach(listener -> listener.onSearchResultsChanged(new SearchResultsChangedEvent<>(cities)));
+        forEach(listener -> listener.onSearchResultsChanged(new SearchResultsChangedEvent<>(cities)));
     }
 }

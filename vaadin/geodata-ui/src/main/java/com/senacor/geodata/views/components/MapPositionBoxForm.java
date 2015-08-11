@@ -6,6 +6,8 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
+ * Form for entering map positions.
+ *
  * @author dschmitz
  */
 public class MapPositionBoxForm extends FormLayout {
@@ -27,10 +29,11 @@ public class MapPositionBoxForm extends FormLayout {
         this.south = new TextField("South");
         this.west = new TextField("West");
 
-        addComponents(this.north, this.east, this.south, this.west);
         this.north.setImmediate(true);
         this.east.setImmediate(true);
         this.south.setImmediate(true);
         this.west.setImmediate(true);
+
+        addComponents(this.north, this.east, this.south, this.west);
     }
 }

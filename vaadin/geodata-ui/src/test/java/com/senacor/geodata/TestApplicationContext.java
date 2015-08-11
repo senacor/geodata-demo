@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  * @author dschmitz
  */
 @Configuration
-@ComponentScan( )
+@ComponentScan
 @EnableAutoConfiguration
 public class TestApplicationContext {
 }
