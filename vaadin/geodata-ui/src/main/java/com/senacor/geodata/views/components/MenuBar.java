@@ -4,6 +4,7 @@ import com.senacor.geodata.GeoDataUI;
 import com.senacor.geodata.views.city.CitySearchView;
 import com.senacor.geodata.views.earthquake.EarthquakeStatisticsView;
 import com.senacor.geodata.views.postalcode.PostalCodeView;
+import com.senacor.geodata.views.useradministration.UserAdministrationView;
 import com.senacor.geodata.views.weather.WeatherInformationView;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
@@ -35,6 +36,8 @@ public class MenuBar extends CssLayout {
         menuItems.addComponent(new MainNavigationMenuItemButton("Postal code", FontAwesome.BUILDING, PostalCodeView.VIEW_NAME));
 
         menuItems.addComponent(new MainNavigationMenuItemButton("Earthquake statistics", FontAwesome.BAR_CHART_O, EarthquakeStatisticsView.VIEW_NAME));
+
+        menuItems.addComponent(new MainNavigationMenuItemButton("User administration", FontAwesome.USER, UserAdministrationView.VIEW_NAME));
 
         menuItems.addComponent(buildLogout());
     }

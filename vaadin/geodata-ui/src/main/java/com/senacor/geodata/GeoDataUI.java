@@ -1,5 +1,6 @@
 package com.senacor.geodata;
 
+import com.senacor.geodata.repository.UserRepository;
 import com.senacor.geodata.views.GeoDataPortalView;
 import com.senacor.geodata.views.LoginView;
 import com.vaadin.annotations.Push;
@@ -32,12 +33,15 @@ public class GeoDataUI extends UI {
         SLF4JBridgeHandler.install();
     }
 
-    private SpringViewProvider viewProvider;
+    private final UserRepository userRepository;
+
+    private final SpringViewProvider viewProvider;
 
     @Autowired
-    public GeoDataUI(SpringViewProvider viewProvider) {
+    public GeoDataUI(SpringViewProvider viewProvider, UserRepository userAdministrationService) {
         super();
         this.viewProvider = viewProvider;
+        this.userRepository = userAdministrationService;
     }
 
     @Override
@@ -45,7 +49,7 @@ public class GeoDataUI extends UI {
         setSizeFull();
         Responsive.makeResponsive(this);
         addStyleName(ValoTheme.UI_WITH_MENU);
-        setContent(new LoginView(this));
+        setContent(new LoginView(this, userRepository));
     }
 
     public void userLoggedIn() {
@@ -53,7 +57,7 @@ public class GeoDataUI extends UI {
     }
 
     public void userLoggedOut() {
-        setContent(new LoginView(this));
+        setContent(new LoginView(this, userRepository));
     }
 
     @WebServlet(value = "/*",
