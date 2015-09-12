@@ -4,6 +4,10 @@ import com.senacor.geodata.model.User;
 import com.senacor.geodata.repository.UserRepository;
 import com.senacor.geodata.views.AbstractCommonView;
 import com.senacor.geodata.views.components.AbstractCommonForm;
+import com.vaadin.data.fieldgroup.BeanFieldGroup;
+import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.fieldgroup.PropertyId;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
@@ -20,14 +24,13 @@ import static com.vaadin.ui.Alignment.MIDDLE_RIGHT;
  * @author dschmitz
  */
 @SpringView(name = UserAdministrationView.VIEW_NAME)
-public class UserAdministrationView  extends AbstractCommonView {
+public class UserAdministrationView extends AbstractCommonView {
     public static final String VIEW_NAME = "UserAdministrationView";
     private final UserRepository userRepository;
 
     @Autowired
     public UserAdministrationView(@Nonnull UserRepository userRepository) {
         this.userRepository = userRepository;
-
     }
 
     @Override
@@ -37,34 +40,37 @@ public class UserAdministrationView  extends AbstractCommonView {
 
     @Override
     protected void addContentsTo(VerticalLayout container) {
-        Table table = new Table();
+        Table table = new UsersTable(null);
 
         container.addComponent(new PrimaryButton("Add new user", event -> {
             Window window = new Window("Add a new user");
             window.setModal(true);
-            window.setResizable(true);
             window.center();
 
             window.setContent(new AbstractCommonForm("User details", FontAwesome.USER) {
                 @Override
                 protected void init(VerticalLayout layout) {
-                    FormLayout formLayout = new FormLayout();
-                    formLayout.setSpacing(true);
-                    formLayout.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
+                    CreateNewUserForm newUserForm = new CreateNewUserForm();
 
-                    TextField id = new TextField("Id");
-                    TextField email = new TextField("E-Mail");
-
-                    formLayout.addComponents(id, email);
+                    BeanFieldGroup binder = new BeanFieldGroup<>(User.class);
+                    binder.setItemDataSource(new BeanItem<>(new User("", "")));
+                    binder.bindMemberFields(newUserForm);
 
                     PrimaryButton createUser = new PrimaryButton("Create new user", event -> {
-                        userRepository.save(new User(id.getValue(), email.getValue()));
-                        table.setContainerDataSource(new ListContainer<>(userRepository.findAll()));
-                        UI.getCurrent().removeWindow(window);
+                        try {
+                            binder.commit();
+                            User user = (User) binder.getItemDataSource().getBean();
+                            userRepository.save(user);
+                            table.setContainerDataSource(new ListContainer<>(userRepository.findAll()));
+                            UI.getCurrent().removeWindow(window);
+                        } catch (FieldGroup.CommitException e) {
+                            e.printStackTrace();
+                            Notification.show("Cannot add user", "User creation failed " + e.getMessage(), Notification.Type.WARNING_MESSAGE);
+                        }
+
                     });
 
-                    layout.addComponent(formLayout);
-                    layout.addComponent(createUser);
+                    layout.addComponents(newUserForm, createUser);
                     layout.setComponentAlignment(createUser, MIDDLE_RIGHT);
                 }
             });
@@ -72,26 +78,47 @@ public class UserAdministrationView  extends AbstractCommonView {
             UI.getCurrent().addWindow(window);
         }));
 
-        table.setSizeUndefined();
-        table.setWidth(100, Unit.PERCENTAGE);
-        table.setPageLength(5);
-
-        table.setColumnHeader("id", "Id");
-        table.setColumnHeader("email", "E-Mail");
-        table.setContainerDataSource(new ListContainer<>(userRepository.findAll()));
-
-        table.setSelectable(true);
-        table.setNullSelectionAllowed(false);
-
-        table.addItemClickListener(event -> {
-            System.out.println("ITEM SELECTED " + event.getItem());
-        });
-
         container.addComponent(table);
     }
 
     @Override
     protected Component buildIntroduction() {
         return new Label("This page demonstrates basic crud handling.");
+    }
+
+    private static class CreateNewUserForm extends FormLayout {
+        @PropertyId("id")
+        private final TextField id;
+        @PropertyId("email")
+        private final TextField email;
+
+        public CreateNewUserForm() {
+            setSpacing(true);
+            addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
+
+            id = new TextField("Id");
+            email = new TextField("E-Mail");
+
+            addComponents(id, email);
+        }
+    }
+
+    private static class UsersTable extends Table {
+        public UsersTable(String caption) {
+            super(caption);
+
+            setSizeUndefined();
+            setWidth(100, Unit.PERCENTAGE);
+            setPageLength(5);
+
+            setColumnHeader("id", "Id");
+            setColumnHeader("email", "E-Mail");
+
+            setSelectable(true);
+            setNullSelectionAllowed(false);
+
+            addItemClickListener(event -> {
+            });
+        }
     }
 }

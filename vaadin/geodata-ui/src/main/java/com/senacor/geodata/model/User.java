@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * @author dschmitz
@@ -14,9 +15,11 @@ import javax.validation.constraints.NotNull;
 @Table(uniqueConstraints = @UniqueConstraint(name ="user_email_uniq", columnNames = "email"))
 public class User {
     @Id
+    @Pattern(regexp = "[a-z]{5,10}", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String id;
 
     @NotNull
+    @Pattern(regexp = "[^@\\s]+@[^@\\s]+", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String email;
 
     @SuppressWarnings("unused") // yeah JPA!
