@@ -43,11 +43,11 @@ public class CityTest {
     }
 
     @Test
-    public void the_wikipedia_url_does_not_affect_equality() {
+    public void the_wikipedia_url_affects_equality() {
         City cityA = new City("anyId", "Duesseldorf", "DE", new SphericalCoordinates(0d, 0d), "http://whatever.com");
         City cityB = new City("anyId", "Duesseldorf", "DE", new SphericalCoordinates(0d, 0d), "url");
 
-        assertEquals(cityA, cityB);
+        assertNotEquals(cityA, cityB);
     }
 
     @Test
